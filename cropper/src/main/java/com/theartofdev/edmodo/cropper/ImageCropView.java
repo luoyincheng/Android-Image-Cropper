@@ -25,9 +25,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
-
-import androidx.exifinterface.media.ExifInterface;
-
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -39,6 +36,8 @@ import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
 import java.util.UUID;
+
+import androidx.exifinterface.media.ExifInterface;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_BUNDLE;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
@@ -230,6 +229,9 @@ public class ImageCropView extends FrameLayout {
 	/**
 	 * Task used to load bitmap async from UI thread
 	 */
+	// TODO: 19-4-15 weakreference的主要作用，handler内存泄露
+	// TODO: 19-4-15 让显示过重的任务降低帧率，比如滑动太快的话调用ontouchevent很快，这时候就会多次调用可能很耗时的计算任务、、、
+	// TODO: 19-4-15 替换默认的progressbar，一个红线，path为包括imagecropview的外框，显示进度(需要知道bitmap加载进度)
 	private WeakReference<BitmapLoadingWorkerTask> mBitmapLoadingWorkerTask;
 
 	/**
@@ -411,7 +413,7 @@ public class ImageCropView extends FrameLayout {
 		mOverlayViewCrop.setInitialAttributeValues(options);
 
 		mProgressBar = v.findViewById(R.id.CropProgressBar);
-		setProgressBarVisibility();
+		updateProgressBarState();
 	}
 
 	/**
@@ -651,7 +653,7 @@ public class ImageCropView extends FrameLayout {
 	public void setShowProgressBar(boolean showProgressBar) {
 		if (mShowProgressBar != showProgressBar) {
 			mShowProgressBar = showProgressBar;
-			setProgressBarVisibility();
+			updateProgressBarState();
 		}
 	}
 
@@ -1130,7 +1132,7 @@ public class ImageCropView extends FrameLayout {
 			mOverlayViewCrop.setInitialCropWindowRect(null);
 			mBitmapLoadingWorkerTask = new WeakReference<>(new BitmapLoadingWorkerTask(this, uri));
 			mBitmapLoadingWorkerTask.get().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			setProgressBarVisibility();
+			updateProgressBarState();
 		}
 	}
 
@@ -1250,7 +1252,7 @@ public class ImageCropView extends FrameLayout {
 	void onSetImageUriAsyncComplete(BitmapLoadingWorkerTask.Result result) {
 
 		mBitmapLoadingWorkerTask = null;
-		setProgressBarVisibility();
+		updateProgressBarState();
 
 		if (result.error == null) {
 			mInitialDegreesRotated = result.degreesRotated;
@@ -1272,7 +1274,7 @@ public class ImageCropView extends FrameLayout {
 	void onImageCroppingAsyncComplete(BitmapCroppingWorkerTask.Result result) {
 
 		mBitmapCroppingWorkerTask = null;
-		setProgressBarVisibility();
+		updateProgressBarState();
 
 		OnCropImageCompleteListener listener = mOnCropImageCompleteListener;
 		if (listener != null) {
@@ -1434,7 +1436,7 @@ public class ImageCropView extends FrameLayout {
 										saveCompressQuality));
 			}
 			mBitmapCroppingWorkerTask.get().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			setProgressBarVisibility();
+			updateProgressBarState();
 		}
 	}
 
@@ -1903,7 +1905,7 @@ public class ImageCropView extends FrameLayout {
 	/**
 	 * Set visibility of progress bar when async loading/cropping is in process and show is enabled.
 	 */
-	private void setProgressBarVisibility() {
+	private void updateProgressBarState() {
 		boolean visible =
 				mShowProgressBar
 						&& (mBitmap == null && mBitmapLoadingWorkerTask != null

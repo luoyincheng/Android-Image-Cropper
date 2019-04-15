@@ -47,7 +47,7 @@ import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_PERMISSIONS_RE
 
 /**
  * Built-in activity for image cropping.<br>
- * Use {@link ImageCrop#activity(Uri)} to create a builder to start this activity.
+ * Use {@link ImageCropOptions.Builder(Uri)} to create a builder to start this activity.
  */
 public class ImageCropActivity extends AppCompatActivity
 		implements ImageCropView.OnSetImageUriCompleteListener,

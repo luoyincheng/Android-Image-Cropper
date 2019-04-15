@@ -47,10 +47,10 @@ import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_RESULT;
 import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUEST_CODE;
 
 /**
- * Helper to simplify crop image work like starting pick-image acitvity and handling camera/gallery
+ * Helper to simplify crop image work like starting pick-image activity and handling camera/gallery
  * intents.<br>
  * The goal of the helper is to simplify the starting and most-common usage of image cropping and
- * not all porpose all possible scenario one-to-rule-them-all code base. So feel free to use it as
+ * not all purpose all possible scenario one-to-rule-them-all code base. So feel free to use it as
  * is and as a wiki to make your own.<br>
  * Added value you get out-of-the-box is some edge case handling that you may miss otherwise, like
  * the stupid-ass Android camera result URI that may differ from version to version and from device
@@ -92,8 +92,8 @@ public final class ImageCrop {
 
 	/**
 	 * Start an activity to get image for cropping using chooser intent that will have all the
-	 * available applications for the device like camera (MyCamera), galery (Photos), store apps
-	 * (Dropbox), etc.<br>
+	 * available applications for the device like camera (MyCamera), galkery (Photos), store apps
+	 * (DropBox), etc.<br>
 	 * Use "pick_image_intent_chooser_title" string resource to override pick chooser title.
 	 *
 	 * @param activity the activity to be used to start activity from
@@ -261,8 +261,8 @@ public final class ImageCrop {
 	}
 
 	/**
-	 * Check if explicetly requesting camera permission is required.<br>
-	 * It is required in Android Marshmellow and above if "CAMERA" permission is requested in the
+	 * Check if explicitly requesting camera permission is required.<br>
+	 * It is required in Android Marshmallow and above if "CAMERA" permission is requested in the
 	 * manifest.<br>
 	 * See <a
 	 * href="http://stackoverflow.com/questions/32789027/android-m-camera-intent-permission-bug">StackOverflow
@@ -287,15 +287,15 @@ public final class ImageCrop {
 		try {
 			PackageInfo packageInfo =
 					context.getPackageManager().getPackageInfo(packageName, PackageManager.GET_PERMISSIONS);
-			final String[] declaredPermisisons = packageInfo.requestedPermissions;
-			if (declaredPermisisons != null && declaredPermisisons.length > 0) {
-				for (String p : declaredPermisisons) {
+			final String[] declaredPermissions = packageInfo.requestedPermissions;
+			if (declaredPermissions != null && declaredPermissions.length > 0) {
+				for (String p : declaredPermissions) {
 					if (p.equalsIgnoreCase(permissionName)) {
 						return true;
 					}
 				}
 			}
-		} catch (PackageManager.NameNotFoundException e) {
+		} catch (PackageManager.NameNotFoundException ignored) {
 		}
 		return false;
 	}

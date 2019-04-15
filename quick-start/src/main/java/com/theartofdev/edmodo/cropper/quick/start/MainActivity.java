@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
 	 * Start pick image activity with chooser.
 	 */
 	public void onSelectImageClick(View view) {
-		new ImageCropOptions.Builder(null)
+		new ImageCropOptions
+				.Builder(null)
 				.setGuidelines(ImageCropView.Guidelines.ON)
 				.setActivityTitle("My Crop")
 				.setCropShape(ImageCropView.CropShape.OVAL)
