@@ -377,33 +377,6 @@ public class ImageCropOptions implements Parcelable {
 		cropMenuCropButtonIcon = 0;
 	}
 
-//	/**
-//	 * Create {@link Builder} instance to open image picker for cropping and then start {@link
-//	 * ImageCropActivity} to crop the selected image.<br>
-//	 * Result will be received in {@link Activity#onActivityResult(int, int, Intent)} and can be
-//	 * retrieved using {@link #getActivityResult(Intent)}.
-//	 *
-//	 * @return builder for Crop Image Activity
-//	 */
-//	public static Builder builder() {
-//		return new Builder(null);
-//	}
-//
-//	/**
-//	 * Create {@link Builder} instance to start {@link ImageCropActivity} to crop the given
-//	 * image.<br>
-//	 * Result will be received in {@link Activity#onActivityResult(int, int, Intent)} and can be
-//	 * retrieved using {@link #getActivityResult(Intent)}.
-//	 *
-//	 * @param uri the image Android uri source to crop or null to start a picker
-//	 * @return builder for Crop Image Activity
-//	 */
-//	public static Builder builder(@Nullable Uri uri) {
-//		return new Builder(uri);
-//	}
-
-	// region: Inner class: Builder
-
 	/**
 	 * Builder used for creating Image Crop Activity by user request.
 	 */
@@ -911,8 +884,6 @@ public class ImageCropOptions implements Parcelable {
 			return this;
 		}
 	}
-	// endregion
-
 
 	/**
 	 * Create object from parcel.
