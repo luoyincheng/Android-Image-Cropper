@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.croppersample.R;
-import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.ImageCrop;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
@@ -55,7 +55,7 @@ public final class MainFragment extends Fragment
   /** Set the image to show for cropping. */
   public void setImageUri(Uri imageUri) {
     mCropImageView.setImageUriAsync(imageUri);
-    //        CropImage.activity(imageUri)
+    //        ImageCrop.activity(imageUri)
     //                .start(getContext(), this);
   }
 
@@ -203,7 +203,7 @@ public final class MainFragment extends Fragment
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-      CropImage.ActivityResult result = CropImage.getActivityResult(data);
+      ImageCrop.ActivityResult result = ImageCrop.getActivityResult(data);
       handleCropResult(result);
     }
   }
@@ -217,7 +217,7 @@ public final class MainFragment extends Fragment
       } else {
         CropResultActivity.mImage =
             mCropImageView.getCropShape() == CropImageView.CropShape.OVAL
-                ? CropImage.toOvalBitmap(result.getBitmap())
+                ? ImageCrop.toOvalBitmap(result.getBitmap())
                 : result.getBitmap();
       }
       startActivity(intent);

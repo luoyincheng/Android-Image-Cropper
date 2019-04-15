@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.test.R;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageOptions;
+import com.theartofdev.edmodo.cropper.ImageCrop;
+import com.theartofdev.edmodo.cropper.ImageCropOptions;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity {
 	 * Start pick image activity with chooser.
 	 */
 	public void onSelectImageClick(View view) {
-		new CropImageOptions.Builder(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
+		new ImageCropOptions.Builder(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-		// handle result of CropImageActivity
+		// handle result of ImageCropActivity
 		if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-			CropImage.ActivityResult result = CropImage.getActivityResult(data);
+			ImageCrop.ActivityResult result = ImageCrop.getActivityResult(data);
 			if (resultCode == RESULT_OK) {
 				((ImageView) findViewById(R.id.quick_start_cropped_image)).setImageURI(result.getUri());
 				Toast.makeText(

@@ -468,7 +468,7 @@ public class CropOverlayView extends View {
 	 * Sets all initial values, but does not call initCropWindow to reset the views.<br>
 	 * Used once at the very start to initialize the attributes.
 	 */
-	public void setInitialAttributeValues(CropImageOptions options) {
+	public void setInitialAttributeValues(ImageCropOptions options) {
 
 		mCropWindowHandler.setInitialAttributeValues(options);
 

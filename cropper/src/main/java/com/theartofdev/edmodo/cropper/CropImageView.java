@@ -88,7 +88,7 @@ public class CropImageView extends FrameLayout {
 	/**
 	 * Animation class to smooth animate zoom-in/out
 	 */
-	private CropImageAnimation mAnimation;
+	private ImageCropAnimation mAnimation;
 
 	private Bitmap mBitmap;
 
@@ -245,7 +245,7 @@ public class CropImageView extends FrameLayout {
 	public CropImageView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		CropImageOptions options = null;
+		ImageCropOptions options = null;
 		Intent intent = context instanceof Activity ? ((Activity) context).getIntent() : null;
 		if (intent != null) {
 			Bundle bundle = intent.getBundleExtra(CROP_IMAGE_EXTRA_BUNDLE);
@@ -256,7 +256,7 @@ public class CropImageView extends FrameLayout {
 
 		if (options == null) {
 
-			options = new CropImageOptions();
+			options = new ImageCropOptions();
 
 			if (attrs != null) {
 				TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropImageView, 0, 0);
@@ -1714,7 +1714,7 @@ public class CropImageView extends FrameLayout {
 					if (animate) {
 						if (mAnimation == null) {
 							// lazy create animation single instance
-							mAnimation = new CropImageAnimation(mImageView, mCropOverlayView);
+							mAnimation = new ImageCropAnimation(mImageView, mCropOverlayView);
 						}
 						// set the state for animation to start from
 						mAnimation.setStartState(mImagePoints, mImageMatrix);

@@ -38,24 +38,23 @@ import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUE
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_BUNDLE;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_SOURCE;
-import static com.theartofdev.edmodo.cropper.CropImage.*;
 
 /**
  * All the possible options that can be set to customize crop image.<br>
  * Initialized with default values.
  */
-public class CropImageOptions implements Parcelable {
+public class ImageCropOptions implements Parcelable {
 
-	public static final Creator<CropImageOptions> CREATOR =
-			new Creator<CropImageOptions>() {
+	public static final Creator<ImageCropOptions> CREATOR =
+			new Creator<ImageCropOptions>() {
 				@Override
-				public CropImageOptions createFromParcel(Parcel in) {
-					return new CropImageOptions(in);
+				public ImageCropOptions createFromParcel(Parcel in) {
+					return new ImageCropOptions(in);
 				}
 
 				@Override
-				public CropImageOptions[] newArray(int size) {
-					return new CropImageOptions[size];
+				public ImageCropOptions[] newArray(int size) {
+					return new ImageCropOptions[size];
 				}
 			};
 
@@ -219,7 +218,7 @@ public class CropImageOptions implements Parcelable {
 	public int maxCropResultHeight;
 
 	/**
-	 * the title of the {@link CropImageActivity}
+	 * the title of the {@link ImageCropActivity}
 	 */
 	public CharSequence activityTitle;
 
@@ -316,7 +315,7 @@ public class CropImageOptions implements Parcelable {
 	/**
 	 * Init options with defaults.
 	 */
-	public CropImageOptions() {
+	public ImageCropOptions() {
 
 		DisplayMetrics dm = Resources.getSystem().getDisplayMetrics();
 
@@ -380,7 +379,7 @@ public class CropImageOptions implements Parcelable {
 
 //	/**
 //	 * Create {@link Builder} instance to open image picker for cropping and then start {@link
-//	 * CropImageActivity} to crop the selected image.<br>
+//	 * ImageCropActivity} to crop the selected image.<br>
 //	 * Result will be received in {@link Activity#onActivityResult(int, int, Intent)} and can be
 //	 * retrieved using {@link #getActivityResult(Intent)}.
 //	 *
@@ -391,7 +390,7 @@ public class CropImageOptions implements Parcelable {
 //	}
 //
 //	/**
-//	 * Create {@link Builder} instance to start {@link CropImageActivity} to crop the given
+//	 * Create {@link Builder} instance to start {@link ImageCropActivity} to crop the given
 //	 * image.<br>
 //	 * Result will be received in {@link Activity#onActivityResult(int, int, Intent)} and can be
 //	 * retrieved using {@link #getActivityResult(Intent)}.
@@ -419,22 +418,22 @@ public class CropImageOptions implements Parcelable {
 		/**
 		 * Options for image crop UX
 		 */
-		private final CropImageOptions mOptions;
+		private final ImageCropOptions mOptions;
 
 		public Builder(@Nullable Uri source) {
 			mSource = source;
-			mOptions = new CropImageOptions();
+			mOptions = new ImageCropOptions();
 		}
 
 		/**
-		 * Get {@link CropImageActivity} intent to start the activity.
+		 * Get {@link ImageCropActivity} intent to start the activity.
 		 */
 		public Intent getIntent(@NonNull Context context) {
-			return getIntent(context, CropImageActivity.class);
+			return getIntent(context, ImageCropActivity.class);
 		}
 
 		/**
-		 * Get {@link CropImageActivity} intent to start the activity.
+		 * Get {@link ImageCropActivity} intent to start the activity.
 		 */
 		public Intent getIntent(@NonNull Context context, @Nullable Class<?> cls) {
 			mOptions.validate();
@@ -449,7 +448,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param activity activity to receive result
 		 */
@@ -459,7 +458,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param activity activity to receive result
 		 */
@@ -469,7 +468,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param fragment fragment to receive result
 		 */
@@ -478,7 +477,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param fragment fragment to receive result
 		 */
@@ -488,7 +487,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param fragment fragment to receive result
 		 */
@@ -498,7 +497,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * Start {@link CropImageActivity}.
+		 * Start {@link ImageCropActivity}.
 		 *
 		 * @param fragment fragment to receive result
 		 */
@@ -744,7 +743,7 @@ public class CropImageOptions implements Parcelable {
 		}
 
 		/**
-		 * the title of the {@link CropImageActivity}.<br>
+		 * the title of the {@link ImageCropActivity}.<br>
 		 * <i>Default: ""</i>
 		 */
 		public Builder setActivityTitle(CharSequence activityTitle) {
@@ -918,7 +917,7 @@ public class CropImageOptions implements Parcelable {
 	/**
 	 * Create object from parcel.
 	 */
-	protected CropImageOptions(Parcel in) {
+	protected ImageCropOptions(Parcel in) {
 		cropShape = CropImageView.CropShape.values()[in.readInt()];
 		snapRadius = in.readFloat();
 		touchRadius = in.readFloat();

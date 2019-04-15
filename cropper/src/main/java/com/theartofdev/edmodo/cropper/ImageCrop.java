@@ -30,7 +30,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -40,10 +39,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_RESULT;
@@ -60,9 +57,9 @@ import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUES
  * to device.
  */
 @SuppressWarnings("WeakerAccess, unused")
-public final class CropImage {
+public final class ImageCrop {
 
-	private CropImage() {
+	private ImageCrop() {
 	}
 
 	/**
@@ -377,8 +374,8 @@ public final class CropImage {
 	}
 
 	/**
-	 * Get {@link CropImageActivity} result data object for crop image activity started using
-	 * {@link CropImageOptions.Builder(Uri)}.
+	 * Get {@link ImageCropActivity} result data object for crop image activity started using
+	 * {@link ImageCropOptions.Builder(Uri)}.
 	 *
 	 * @param data result data intent as received in {@link Activity#onActivityResult(int, int,
 	 *             Intent)}.

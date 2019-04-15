@@ -23,7 +23,7 @@ import android.widget.ImageView;
  * Animation to handle smooth cropping image matrix transformation change, specifically for
  * zoom-in/out.
  */
-final class CropImageAnimation extends Animation implements Animation.AnimationListener {
+final class ImageCropAnimation extends Animation implements Animation.AnimationListener {
 
 	// region: Fields and Consts
 
@@ -50,7 +50,7 @@ final class CropImageAnimation extends Animation implements Animation.AnimationL
 	private final float[] mAnimMatrix = new float[9];
 	// endregion
 
-	public CropImageAnimation(ImageView cropImageView, CropOverlayView cropOverlayView) {
+	public ImageCropAnimation(ImageView cropImageView, CropOverlayView cropOverlayView) {
 		mImageView = cropImageView;
 		mCropOverlayView = cropOverlayView;
 

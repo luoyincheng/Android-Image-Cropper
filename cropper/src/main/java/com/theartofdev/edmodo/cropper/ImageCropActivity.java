@@ -47,9 +47,9 @@ import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_PERMISSIONS_RE
 
 /**
  * Built-in activity for image cropping.<br>
- * Use {@link CropImage#activity(Uri)} to create a builder to start this activity.
+ * Use {@link ImageCrop#activity(Uri)} to create a builder to start this activity.
  */
-public class CropImageActivity extends AppCompatActivity
+public class ImageCropActivity extends AppCompatActivity
 		implements CropImageView.OnSetImageUriCompleteListener,
 		CropImageView.OnCropImageCompleteListener {
 
@@ -66,7 +66,7 @@ public class CropImageActivity extends AppCompatActivity
 	/**
 	 * the options that were set for the crop image
 	 */
-	private CropImageOptions mOptions;
+	private ImageCropOptions mOptions;
 
 	@Override
 	@SuppressLint("NewApi")
@@ -82,15 +82,15 @@ public class CropImageActivity extends AppCompatActivity
 
 		if (savedInstanceState == null) {
 			if (mCropImageUri == null || mCropImageUri.equals(Uri.EMPTY)) {
-				if (CropImage.isExplicitCameraPermissionRequired(this)) {
+				if (ImageCrop.isExplicitCameraPermissionRequired(this)) {
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.CAMERA},
 							CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
 				} else {
-					CropImage.startPickImageActivity(this);
+					ImageCrop.startPickImageActivity(this);
 				}
-			} else if (CropImage.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
+			} else if (ImageCrop.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
 				// request permissions and handle the result in onRequestPermissionsResult()
 				requestPermissions(
 						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -215,11 +215,11 @@ public class CropImageActivity extends AppCompatActivity
 			}
 
 			if (resultCode == Activity.RESULT_OK) {
-				mCropImageUri = CropImage.getPickImageResultUri(this, data);
+				mCropImageUri = ImageCrop.getPickImageResultUri(this, data);
 
 				// For API >= 23 we need to check specifically that we have permissions to read external
 				// storage.
-				if (CropImage.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
+				if (ImageCrop.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -250,7 +250,7 @@ public class CropImageActivity extends AppCompatActivity
 		if (requestCode == CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
 			// Irrespective of whether camera permission was given or not, we show the picker
 			// The picker will not add the camera intent if permission is not available
-			CropImage.startPickImageActivity(this);
+			ImageCrop.startPickImageActivity(this);
 		}
 	}
 
@@ -341,8 +341,8 @@ public class CropImageActivity extends AppCompatActivity
 	 * Get intent instance to be used for the result of this activity.
 	 */
 	protected Intent getResultIntent(Uri uri, Exception error, int sampleSize) {
-		CropImage.ActivityResult result =
-				new CropImage.ActivityResult(
+		ImageCrop.ActivityResult result =
+				new ImageCrop.ActivityResult(
 						mCropImageView.getImageUri(),
 						uri,
 						error,
