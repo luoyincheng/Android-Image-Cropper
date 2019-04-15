@@ -27,20 +27,20 @@ import android.widget.Toast;
 
 import com.example.croppersample.R;
 import com.theartofdev.edmodo.cropper.ImageCrop;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.theartofdev.edmodo.cropper.ImageCropView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 
 /** The fragment that will show the Image Cropping UI by requested preset. */
 public final class MainFragment extends Fragment
-    implements CropImageView.OnSetImageUriCompleteListener,
-        CropImageView.OnCropImageCompleteListener {
+    implements ImageCropView.OnSetImageUriCompleteListener,
+        ImageCropView.OnCropImageCompleteListener {
 
   // region: Fields and Consts
 
   private CropDemoPreset mDemoPreset;
 
-  private CropImageView mCropImageView;
+  private ImageCropView mImageCropView;
   // endregion
 
   /** Returns a new instance of this fragment for the given section number. */
@@ -54,50 +54,50 @@ public final class MainFragment extends Fragment
 
   /** Set the image to show for cropping. */
   public void setImageUri(Uri imageUri) {
-    mCropImageView.setImageUriAsync(imageUri);
+    mImageCropView.setImageUriAsync(imageUri);
     //        ImageCrop.activity(imageUri)
     //                .start(getContext(), this);
   }
 
   /** Set the options of the crop image view to the given values. */
   public void setCropImageViewOptions(CropImageViewOptions options) {
-    mCropImageView.setScaleType(options.scaleType);
-    mCropImageView.setCropShape(options.cropShape);
-    mCropImageView.setGuidelines(options.guidelines);
-    mCropImageView.setAspectRatio(options.aspectRatio.first, options.aspectRatio.second);
-    mCropImageView.setFixedAspectRatio(options.fixAspectRatio);
-    mCropImageView.setMultiTouchEnabled(options.multitouch);
-    mCropImageView.setShowCropOverlay(options.showCropOverlay);
-    mCropImageView.setShowProgressBar(options.showProgressBar);
-    mCropImageView.setAutoZoomEnabled(options.autoZoomEnabled);
-    mCropImageView.setMaxZoom(options.maxZoomLevel);
-    mCropImageView.setFlippedHorizontally(options.flipHorizontally);
-    mCropImageView.setFlippedVertically(options.flipVertically);
+    mImageCropView.setScaleType(options.scaleType);
+    mImageCropView.setCropShape(options.cropShape);
+    mImageCropView.setGuidelines(options.guidelines);
+    mImageCropView.setAspectRatio(options.aspectRatio.first, options.aspectRatio.second);
+    mImageCropView.setFixedAspectRatio(options.fixAspectRatio);
+    mImageCropView.setMultiTouchEnabled(options.multitouch);
+    mImageCropView.setShowCropOverlay(options.showCropOverlay);
+    mImageCropView.setShowProgressBar(options.showProgressBar);
+    mImageCropView.setAutoZoomEnabled(options.autoZoomEnabled);
+    mImageCropView.setMaxZoom(options.maxZoomLevel);
+    mImageCropView.setFlippedHorizontally(options.flipHorizontally);
+    mImageCropView.setFlippedVertically(options.flipVertically);
   }
 
   /** Set the initial rectangle to use. */
   public void setInitialCropRect() {
-    mCropImageView.setCropRect(new Rect(100, 300, 500, 1200));
+    mImageCropView.setCropRect(new Rect(100, 300, 500, 1200));
   }
 
   /** Reset crop window to initial rectangle. */
   public void resetCropRect() {
-    mCropImageView.resetCropRect();
+    mImageCropView.resetCropRect();
   }
 
   public void updateCurrentCropViewOptions() {
     CropImageViewOptions options = new CropImageViewOptions();
-    options.scaleType = mCropImageView.getScaleType();
-    options.cropShape = mCropImageView.getCropShape();
-    options.guidelines = mCropImageView.getGuidelines();
-    options.aspectRatio = mCropImageView.getAspectRatio();
-    options.fixAspectRatio = mCropImageView.isFixAspectRatio();
-    options.showCropOverlay = mCropImageView.isShowCropOverlay();
-    options.showProgressBar = mCropImageView.isShowProgressBar();
-    options.autoZoomEnabled = mCropImageView.isAutoZoomEnabled();
-    options.maxZoomLevel = mCropImageView.getMaxZoom();
-    options.flipHorizontally = mCropImageView.isFlippedHorizontally();
-    options.flipVertically = mCropImageView.isFlippedVertically();
+    options.scaleType = mImageCropView.getScaleType();
+    options.cropShape = mImageCropView.getCropShape();
+    options.guidelines = mImageCropView.getGuidelines();
+    options.aspectRatio = mImageCropView.getAspectRatio();
+    options.fixAspectRatio = mImageCropView.isFixAspectRatio();
+    options.showCropOverlay = mImageCropView.isShowCropOverlay();
+    options.showProgressBar = mImageCropView.isShowProgressBar();
+    options.autoZoomEnabled = mImageCropView.isAutoZoomEnabled();
+    options.maxZoomLevel = mImageCropView.getMaxZoom();
+    options.flipHorizontally = mImageCropView.isFlippedHorizontally();
+    options.flipVertically = mImageCropView.isFlippedVertically();
     ((MainActivity) getActivity()).setCurrentOptions(options);
   }
 
@@ -134,17 +134,17 @@ public final class MainFragment extends Fragment
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    mCropImageView = view.findViewById(R.id.cropImageView);
-    mCropImageView.setOnSetImageUriCompleteListener(this);
-    mCropImageView.setOnCropImageCompleteListener(this);
+    mImageCropView = view.findViewById(R.id.cropImageView);
+    mImageCropView.setOnSetImageUriCompleteListener(this);
+    mImageCropView.setOnCropImageCompleteListener(this);
 
     updateCurrentCropViewOptions();
 
     if (savedInstanceState == null) {
       if (mDemoPreset == CropDemoPreset.SCALE_CENTER_INSIDE) {
-        mCropImageView.setImageResource(R.drawable.cat_small);
+        mImageCropView.setImageResource(R.drawable.cat_small);
       } else {
-        mCropImageView.setImageResource(R.drawable.cat);
+        mImageCropView.setImageResource(R.drawable.cat);
       }
     }
   }
@@ -152,16 +152,16 @@ public final class MainFragment extends Fragment
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == R.id.main_action_crop) {
-      mCropImageView.getCroppedImageAsync();
+      mImageCropView.getCroppedImageAsync();
       return true;
     } else if (item.getItemId() == R.id.main_action_rotate) {
-      mCropImageView.rotateImage(90);
+      mImageCropView.rotateImage(90);
       return true;
     } else if (item.getItemId() == R.id.main_action_flip_horizontally) {
-      mCropImageView.flipImageHorizontally();
+      mImageCropView.flipImageHorizontally();
       return true;
     } else if (item.getItemId() == R.id.main_action_flip_vertically) {
-      mCropImageView.flipImageVertically();
+      mImageCropView.flipImageVertically();
       return true;
     }
     return super.onOptionsItemSelected(item);
@@ -177,14 +177,14 @@ public final class MainFragment extends Fragment
   @Override
   public void onDetach() {
     super.onDetach();
-    if (mCropImageView != null) {
-      mCropImageView.setOnSetImageUriCompleteListener(null);
-      mCropImageView.setOnCropImageCompleteListener(null);
+    if (mImageCropView != null) {
+      mImageCropView.setOnSetImageUriCompleteListener(null);
+      mImageCropView.setOnCropImageCompleteListener(null);
     }
   }
 
   @Override
-  public void onSetImageUriComplete(CropImageView view, Uri uri, Exception error) {
+  public void onSetImageUriComplete(ImageCropView view, Uri uri, Exception error) {
     if (error == null) {
       Toast.makeText(getActivity(), "Image load successful", Toast.LENGTH_SHORT).show();
     } else {
@@ -195,7 +195,7 @@ public final class MainFragment extends Fragment
   }
 
   @Override
-  public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
+  public void onCropImageComplete(ImageCropView view, ImageCropView.CropResult result) {
     handleCropResult(result);
   }
 
@@ -208,7 +208,7 @@ public final class MainFragment extends Fragment
     }
   }
 
-  private void handleCropResult(CropImageView.CropResult result) {
+  private void handleCropResult(ImageCropView.CropResult result) {
     if (result.getError() == null) {
       Intent intent = new Intent(getActivity(), CropResultActivity.class);
       intent.putExtra("SAMPLE_SIZE", result.getSampleSize());
@@ -216,7 +216,7 @@ public final class MainFragment extends Fragment
         intent.putExtra("URI", result.getUri());
       } else {
         CropResultActivity.mImage =
-            mCropImageView.getCropShape() == CropImageView.CropShape.OVAL
+            mImageCropView.getCropShape() == ImageCropView.CropShape.OVAL
                 ? ImageCrop.toOvalBitmap(result.getBitmap())
                 : result.getBitmap();
       }

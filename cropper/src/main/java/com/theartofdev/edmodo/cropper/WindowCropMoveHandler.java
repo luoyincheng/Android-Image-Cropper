@@ -20,7 +20,7 @@ import android.graphics.RectF;
  * Handler to update crop window edges by the move type - Horizontal, Vertical, Corner or Center.
  * <br>
  */
-final class CropWindowMoveHandler {
+final class WindowCropMoveHandler {
 
 	// region: Fields and Consts
 
@@ -67,18 +67,18 @@ final class CropWindowMoveHandler {
 	 * @param edgeMoveType      the type of move this handler is executing
 	 * @param horizontalEdge    the primary edge associated with this handle; may be null
 	 * @param verticalEdge      the secondary edge associated with this handle; may be null
-	 * @param cropWindowHandler main crop window handle to get and update the crop window edges
+	 * @param windowCropHandler main crop window handle to get and update the crop window edges
 	 * @param touchX            the location of the initial toch possition to measure move distance
 	 * @param touchY            the location of the initial toch possition to measure move distance
 	 */
-	public CropWindowMoveHandler(
-			Type type, CropWindowHandler cropWindowHandler, float touchX, float touchY) {
+	public WindowCropMoveHandler(
+			Type type, WindowCropHandler windowCropHandler, float touchX, float touchY) {
 		mType = type;
-		mMinCropWidth = cropWindowHandler.getMinCropWidth();
-		mMinCropHeight = cropWindowHandler.getMinCropHeight();
-		mMaxCropWidth = cropWindowHandler.getMaxCropWidth();
-		mMaxCropHeight = cropWindowHandler.getMaxCropHeight();
-		calculateTouchOffset(cropWindowHandler.getRect(), touchX, touchY);
+		mMinCropWidth = windowCropHandler.getMinCropWidth();
+		mMinCropHeight = windowCropHandler.getMinCropHeight();
+		mMaxCropWidth = windowCropHandler.getMaxCropWidth();
+		mMaxCropHeight = windowCropHandler.getMaxCropHeight();
+		calculateTouchOffset(windowCropHandler.getRect(), touchX, touchY);
 	}
 
 	/**

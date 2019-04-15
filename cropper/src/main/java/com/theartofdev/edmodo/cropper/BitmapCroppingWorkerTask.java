@@ -30,7 +30,7 @@ final class BitmapCroppingWorkerTask
 	/**
 	 * Use a WeakReference to ensure the ImageView can be garbage collected
 	 */
-	private final WeakReference<CropImageView> mCropImageViewReference;
+	private final WeakReference<ImageCropView> mCropImageViewReference;
 
 	/**
 	 * the bitmap to crop
@@ -105,7 +105,7 @@ final class BitmapCroppingWorkerTask
 	/**
 	 * The option to handle requested width/height
 	 */
-	private final CropImageView.RequestSizeOptions mReqSizeOptions;
+	private final ImageCropView.RequestSizeOptions mReqSizeOptions;
 
 	/**
 	 * the Android Uri to save the cropped image to
@@ -124,7 +124,7 @@ final class BitmapCroppingWorkerTask
 	// endregion
 
 	BitmapCroppingWorkerTask(
-			CropImageView cropImageView,
+			ImageCropView imageCropView,
 			Bitmap bitmap,
 			float[] cropPoints,
 			int degreesRotated,
@@ -135,13 +135,13 @@ final class BitmapCroppingWorkerTask
 			int reqHeight,
 			boolean flipHorizontally,
 			boolean flipVertically,
-			CropImageView.RequestSizeOptions options,
+			ImageCropView.RequestSizeOptions options,
 			Uri saveUri,
 			Bitmap.CompressFormat saveCompressFormat,
 			int saveCompressQuality) {
 
-		mCropImageViewReference = new WeakReference<>(cropImageView);
-		mContext = cropImageView.getContext();
+		mCropImageViewReference = new WeakReference<>(imageCropView);
+		mContext = imageCropView.getContext();
 		mBitmap = bitmap;
 		mCropPoints = cropPoints;
 		mUri = null;
@@ -162,7 +162,7 @@ final class BitmapCroppingWorkerTask
 	}
 
 	BitmapCroppingWorkerTask(
-			CropImageView cropImageView,
+			ImageCropView imageCropView,
 			Uri uri,
 			float[] cropPoints,
 			int degreesRotated,
@@ -175,13 +175,13 @@ final class BitmapCroppingWorkerTask
 			int reqHeight,
 			boolean flipHorizontally,
 			boolean flipVertically,
-			CropImageView.RequestSizeOptions options,
+			ImageCropView.RequestSizeOptions options,
 			Uri saveUri,
 			Bitmap.CompressFormat saveCompressFormat,
 			int saveCompressQuality) {
 
-		mCropImageViewReference = new WeakReference<>(cropImageView);
-		mContext = cropImageView.getContext();
+		mCropImageViewReference = new WeakReference<>(imageCropView);
+		mContext = imageCropView.getContext();
 		mUri = uri;
 		mCropPoints = cropPoints;
 		mDegreesRotated = degreesRotated;
@@ -281,10 +281,10 @@ final class BitmapCroppingWorkerTask
 		if (result != null) {
 			boolean completeCalled = false;
 			if (!isCancelled()) {
-				CropImageView cropImageView = mCropImageViewReference.get();
-				if (cropImageView != null) {
+				ImageCropView imageCropView = mCropImageViewReference.get();
+				if (imageCropView != null) {
 					completeCalled = true;
-					cropImageView.onImageCroppingAsyncComplete(result);
+					imageCropView.onImageCroppingAsyncComplete(result);
 				}
 			}
 			if (!completeCalled && result.bitmap != null) {

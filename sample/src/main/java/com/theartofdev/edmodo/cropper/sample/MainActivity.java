@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 import com.example.croppersample.R;
 import com.theartofdev.edmodo.cropper.ImageCrop;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.theartofdev.edmodo.cropper.ImageCropView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE;
 import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUEST_CODE;
@@ -197,31 +197,31 @@ public class MainActivity extends AppCompatActivity {
 				break;
 			case R.id.drawer_option_toggle_scale:
 				mCropImageViewOptions.scaleType =
-						mCropImageViewOptions.scaleType == CropImageView.ScaleType.FIT_CENTER
-								? CropImageView.ScaleType.CENTER_INSIDE
-								: mCropImageViewOptions.scaleType == CropImageView.ScaleType.CENTER_INSIDE
-								? CropImageView.ScaleType.CENTER
-								: mCropImageViewOptions.scaleType == CropImageView.ScaleType.CENTER
-								? CropImageView.ScaleType.CENTER_CROP
-								: CropImageView.ScaleType.FIT_CENTER;
+						mCropImageViewOptions.scaleType == ImageCropView.ScaleType.FIT_CENTER
+								? ImageCropView.ScaleType.CENTER_INSIDE
+								: mCropImageViewOptions.scaleType == ImageCropView.ScaleType.CENTER_INSIDE
+								? ImageCropView.ScaleType.CENTER
+								: mCropImageViewOptions.scaleType == ImageCropView.ScaleType.CENTER
+								? ImageCropView.ScaleType.CENTER_CROP
+								: ImageCropView.ScaleType.FIT_CENTER;
 				mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
 				updateDrawerTogglesByOptions(mCropImageViewOptions);
 				break;
 			case R.id.drawer_option_toggle_shape:
 				mCropImageViewOptions.cropShape =
-						mCropImageViewOptions.cropShape == CropImageView.CropShape.RECTANGLE
-								? CropImageView.CropShape.OVAL
-								: CropImageView.CropShape.RECTANGLE;
+						mCropImageViewOptions.cropShape == ImageCropView.CropShape.RECTANGLE
+								? ImageCropView.CropShape.OVAL
+								: ImageCropView.CropShape.RECTANGLE;
 				mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
 				updateDrawerTogglesByOptions(mCropImageViewOptions);
 				break;
 			case R.id.drawer_option_toggle_guidelines:
 				mCropImageViewOptions.guidelines =
-						mCropImageViewOptions.guidelines == CropImageView.Guidelines.OFF
-								? CropImageView.Guidelines.ON
-								: mCropImageViewOptions.guidelines == CropImageView.Guidelines.ON
-								? CropImageView.Guidelines.ON_TOUCH
-								: CropImageView.Guidelines.OFF;
+						mCropImageViewOptions.guidelines == ImageCropView.Guidelines.OFF
+								? ImageCropView.Guidelines.ON
+								: mCropImageViewOptions.guidelines == ImageCropView.Guidelines.ON
+								? ImageCropView.Guidelines.ON_TOUCH
+								: ImageCropView.Guidelines.OFF;
 				mCurrentFragment.setCropImageViewOptions(mCropImageViewOptions);
 				updateDrawerTogglesByOptions(mCropImageViewOptions);
 				break;

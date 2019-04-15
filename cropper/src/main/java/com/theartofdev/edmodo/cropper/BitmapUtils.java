@@ -446,22 +446,22 @@ final class BitmapUtils {
 	 * Resize the given bitmap to the given width/height by the given option.<br>
 	 */
 	static Bitmap resizeBitmap(
-			Bitmap bitmap, int reqWidth, int reqHeight, CropImageView.RequestSizeOptions options) {
+			Bitmap bitmap, int reqWidth, int reqHeight, ImageCropView.RequestSizeOptions options) {
 		try {
 			if (reqWidth > 0
 					&& reqHeight > 0
-					&& (options == CropImageView.RequestSizeOptions.RESIZE_FIT
-					|| options == CropImageView.RequestSizeOptions.RESIZE_INSIDE
-					|| options == CropImageView.RequestSizeOptions.RESIZE_EXACT)) {
+					&& (options == ImageCropView.RequestSizeOptions.RESIZE_FIT
+					|| options == ImageCropView.RequestSizeOptions.RESIZE_INSIDE
+					|| options == ImageCropView.RequestSizeOptions.RESIZE_EXACT)) {
 
 				Bitmap resized = null;
-				if (options == CropImageView.RequestSizeOptions.RESIZE_EXACT) {
+				if (options == ImageCropView.RequestSizeOptions.RESIZE_EXACT) {
 					resized = Bitmap.createScaledBitmap(bitmap, reqWidth, reqHeight, false);
 				} else {
 					int width = bitmap.getWidth();
 					int height = bitmap.getHeight();
 					float scale = Math.max(width / (float) reqWidth, height / (float) reqHeight);
-					if (scale > 1 || options == CropImageView.RequestSizeOptions.RESIZE_FIT) {
+					if (scale > 1 || options == ImageCropView.RequestSizeOptions.RESIZE_FIT) {
 						resized =
 								Bitmap.createScaledBitmap(
 										bitmap, (int) (width / scale), (int) (height / scale), false);

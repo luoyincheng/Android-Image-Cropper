@@ -50,13 +50,13 @@ import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_PERMISSIONS_RE
  * Use {@link ImageCrop#activity(Uri)} to create a builder to start this activity.
  */
 public class ImageCropActivity extends AppCompatActivity
-		implements CropImageView.OnSetImageUriCompleteListener,
-		CropImageView.OnCropImageCompleteListener {
+		implements ImageCropView.OnSetImageUriCompleteListener,
+		ImageCropView.OnCropImageCompleteListener {
 
 	/**
 	 * The crop image view library widget used in the activity
 	 */
-	private CropImageView mCropImageView;
+	private ImageCropView mImageCropView;
 
 	/**
 	 * Persist URI image to crop URI if specific permissions are required
@@ -74,7 +74,7 @@ public class ImageCropActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.crop_image_activity);
 
-		mCropImageView = findViewById(R.id.cropImageView);
+		mImageCropView = findViewById(R.id.cropImageView);
 
 		Bundle bundle = getIntent().getBundleExtra(CROP_IMAGE_EXTRA_BUNDLE);
 		mCropImageUri = bundle.getParcelable(CROP_IMAGE_EXTRA_SOURCE);
@@ -97,7 +97,7 @@ public class ImageCropActivity extends AppCompatActivity
 						PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
 			} else {
 				// no permissions required or already grunted, can start crop image activity
-				mCropImageView.setImageUriAsync(mCropImageUri);
+				mImageCropView.setImageUriAsync(mCropImageUri);
 			}
 		}
 
@@ -115,15 +115,15 @@ public class ImageCropActivity extends AppCompatActivity
 	@Override
 	protected void onStart() {
 		super.onStart();
-		mCropImageView.setOnSetImageUriCompleteListener(this);
-		mCropImageView.setOnCropImageCompleteListener(this);
+		mImageCropView.setOnSetImageUriCompleteListener(this);
+		mImageCropView.setOnCropImageCompleteListener(this);
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		mCropImageView.setOnSetImageUriCompleteListener(null);
-		mCropImageView.setOnCropImageCompleteListener(null);
+		mImageCropView.setOnSetImageUriCompleteListener(null);
+		mImageCropView.setOnCropImageCompleteListener(null);
 	}
 
 	@Override
@@ -183,11 +183,11 @@ public class ImageCropActivity extends AppCompatActivity
 			return true;
 		}
 		if (item.getItemId() == R.id.crop_image_menu_flip_horizontally) {
-			mCropImageView.flipImageHorizontally();
+			mImageCropView.flipImageHorizontally();
 			return true;
 		}
 		if (item.getItemId() == R.id.crop_image_menu_flip_vertically) {
-			mCropImageView.flipImageVertically();
+			mImageCropView.flipImageVertically();
 			return true;
 		}
 		if (item.getItemId() == android.R.id.home) {
@@ -226,7 +226,7 @@ public class ImageCropActivity extends AppCompatActivity
 							PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
 				} else {
 					// no permissions required or already grunted, can start crop image activity
-					mCropImageView.setImageUriAsync(mCropImageUri);
+					mImageCropView.setImageUriAsync(mCropImageUri);
 				}
 			}
 		}
@@ -240,7 +240,7 @@ public class ImageCropActivity extends AppCompatActivity
 					&& grantResults.length > 0
 					&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 				// required permissions granted, start crop image activity
-				mCropImageView.setImageUriAsync(mCropImageUri);
+				mImageCropView.setImageUriAsync(mCropImageUri);
 			} else {
 				Toast.makeText(this, R.string.crop_image_activity_no_permissions, Toast.LENGTH_LONG).show();
 				setResultCancel();
@@ -255,13 +255,13 @@ public class ImageCropActivity extends AppCompatActivity
 	}
 
 	@Override
-	public void onSetImageUriComplete(CropImageView view, Uri uri, Exception error) {
+	public void onSetImageUriComplete(ImageCropView view, Uri uri, Exception error) {
 		if (error == null) {
 			if (mOptions.initialCropWindowRectangle != null) {
-				mCropImageView.setCropRect(mOptions.initialCropWindowRectangle);
+				mImageCropView.setCropRect(mOptions.initialCropWindowRectangle);
 			}
 			if (mOptions.initialRotation > -1) {
-				mCropImageView.setRotatedDegrees(mOptions.initialRotation);
+				mImageCropView.setRotatedDegrees(mOptions.initialRotation);
 			}
 		} else {
 			setResult(null, error, 1);
@@ -269,7 +269,7 @@ public class ImageCropActivity extends AppCompatActivity
 	}
 
 	@Override
-	public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
+	public void onCropImageComplete(ImageCropView view, ImageCropView.CropResult result) {
 		setResult(result.getUri(), result.getError(), result.getSampleSize());
 	}
 
@@ -283,7 +283,7 @@ public class ImageCropActivity extends AppCompatActivity
 			setResult(null, null, 1);
 		} else {
 			Uri outputUri = getOutputUri();
-			mCropImageView.saveCroppedImageAsync(
+			mImageCropView.saveCroppedImageAsync(
 					outputUri,
 					mOptions.outputCompressFormat,
 					mOptions.outputCompressQuality,
@@ -297,7 +297,7 @@ public class ImageCropActivity extends AppCompatActivity
 	 * Rotate the image in the crop image view.
 	 */
 	protected void rotateImage(int degrees) {
-		mCropImageView.rotateImage(degrees);
+		mImageCropView.rotateImage(degrees);
 	}
 
 	/**
@@ -343,13 +343,13 @@ public class ImageCropActivity extends AppCompatActivity
 	protected Intent getResultIntent(Uri uri, Exception error, int sampleSize) {
 		ImageCrop.ActivityResult result =
 				new ImageCrop.ActivityResult(
-						mCropImageView.getImageUri(),
+						mImageCropView.getImageUri(),
 						uri,
 						error,
-						mCropImageView.getCropPoints(),
-						mCropImageView.getCropRect(),
-						mCropImageView.getRotatedDegrees(),
-						mCropImageView.getWholeImageRect(),
+						mImageCropView.getCropPoints(),
+						mImageCropView.getCropRect(),
+						mImageCropView.getRotatedDegrees(),
+						mImageCropView.getWholeImageRect(),
 						sampleSize);
 		Intent intent = new Intent();
 		intent.putExtras(getIntent());

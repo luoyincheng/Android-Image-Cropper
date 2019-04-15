@@ -30,7 +30,7 @@ final class BitmapLoadingWorkerTask extends AsyncTask<Void, Void, BitmapLoadingW
 	/**
 	 * Use a WeakReference to ensure the ImageView can be garbage collected
 	 */
-	private final WeakReference<CropImageView> mCropImageViewReference;
+	private final WeakReference<ImageCropView> mCropImageViewReference;
 
 	/**
 	 * The Android URI of the image to load
@@ -53,13 +53,13 @@ final class BitmapLoadingWorkerTask extends AsyncTask<Void, Void, BitmapLoadingW
 	private final int mHeight;
 	// endregion
 
-	public BitmapLoadingWorkerTask(CropImageView cropImageView, Uri uri) {
+	public BitmapLoadingWorkerTask(ImageCropView imageCropView, Uri uri) {
 		mUri = uri;
-		mCropImageViewReference = new WeakReference<>(cropImageView);
+		mCropImageViewReference = new WeakReference<>(imageCropView);
 
-		mContext = cropImageView.getContext();
+		mContext = imageCropView.getContext();
 
-		DisplayMetrics metrics = cropImageView.getResources().getDisplayMetrics();
+		DisplayMetrics metrics = imageCropView.getResources().getDisplayMetrics();
 		double densityAdj = metrics.density > 1 ? 1 / metrics.density : 1;
 		mWidth = (int) (metrics.widthPixels * densityAdj);
 		mHeight = (int) (metrics.heightPixels * densityAdj);
@@ -111,10 +111,10 @@ final class BitmapLoadingWorkerTask extends AsyncTask<Void, Void, BitmapLoadingW
 		if (result != null) {
 			boolean completeCalled = false;
 			if (!isCancelled()) {
-				CropImageView cropImageView = mCropImageViewReference.get();
-				if (cropImageView != null) {
+				ImageCropView imageCropView = mCropImageViewReference.get();
+				if (imageCropView != null) {
 					completeCalled = true;
-					cropImageView.onSetImageUriAsyncComplete(result);
+					imageCropView.onSetImageUriAsyncComplete(result);
 				}
 			}
 			if (!completeCalled && result.bitmap != null) {

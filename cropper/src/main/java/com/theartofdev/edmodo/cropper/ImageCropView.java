@@ -46,9 +46,9 @@ import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
 /**
  * Custom view that provides cropping capabilities to an image.
  */
-public class CropImageView extends FrameLayout {
+public class ImageCropView extends FrameLayout {
 
-	// region: Fields and Consts
+	// region: Fields and Constants
 
 	/**
 	 * Image view widget used to show the image for cropping.
@@ -58,7 +58,7 @@ public class CropImageView extends FrameLayout {
 	/**
 	 * Overlay over the image view to show cropping UI.
 	 */
-	private final CropOverlayView mCropOverlayView;
+	private final OverlayViewCrop mOverlayViewCrop;
 
 	/**
 	 * The matrix used to transform the cropping image in the image view
@@ -238,11 +238,11 @@ public class CropImageView extends FrameLayout {
 	private WeakReference<BitmapCroppingWorkerTask> mBitmapCroppingWorkerTask;
 	// endregion
 
-	public CropImageView(Context context) {
+	public ImageCropView(Context context) {
 		this(context, null);
 	}
 
-	public CropImageView(Context context, AttributeSet attrs) {
+	public ImageCropView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		ImageCropOptions options = null;
@@ -259,115 +259,115 @@ public class CropImageView extends FrameLayout {
 			options = new ImageCropOptions();
 
 			if (attrs != null) {
-				TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropImageView, 0, 0);
+				TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ImageCropView, 0, 0);
 				try {
 					options.fixAspectRatio =
-							ta.getBoolean(R.styleable.CropImageView_cropFixAspectRatio, options.fixAspectRatio);
+							ta.getBoolean(R.styleable.ImageCropView_cropFixAspectRatio, options.fixAspectRatio);
 					options.aspectRatioX =
-							ta.getInteger(R.styleable.CropImageView_cropAspectRatioX, options.aspectRatioX);
+							ta.getInteger(R.styleable.ImageCropView_cropAspectRatioX, options.aspectRatioX);
 					options.aspectRatioY =
-							ta.getInteger(R.styleable.CropImageView_cropAspectRatioY, options.aspectRatioY);
+							ta.getInteger(R.styleable.ImageCropView_cropAspectRatioY, options.aspectRatioY);
 					options.scaleType =
 							ScaleType.values()[
-									ta.getInt(R.styleable.CropImageView_cropScaleType, options.scaleType.ordinal())];
+									ta.getInt(R.styleable.ImageCropView_cropScaleType, options.scaleType.ordinal())];
 					options.autoZoomEnabled =
-							ta.getBoolean(R.styleable.CropImageView_cropAutoZoomEnabled, options.autoZoomEnabled);
+							ta.getBoolean(R.styleable.ImageCropView_cropAutoZoomEnabled, options.autoZoomEnabled);
 					options.multiTouchEnabled =
 							ta.getBoolean(
-									R.styleable.CropImageView_cropMultiTouchEnabled, options.multiTouchEnabled);
-					options.maxZoom = ta.getInteger(R.styleable.CropImageView_cropMaxZoom, options.maxZoom);
+									R.styleable.ImageCropView_cropMultiTouchEnabled, options.multiTouchEnabled);
+					options.maxZoom = ta.getInteger(R.styleable.ImageCropView_cropMaxZoom, options.maxZoom);
 					options.cropShape =
 							CropShape.values()[
-									ta.getInt(R.styleable.CropImageView_cropShape, options.cropShape.ordinal())];
+									ta.getInt(R.styleable.ImageCropView_cropShape, options.cropShape.ordinal())];
 					options.guidelines =
 							Guidelines.values()[
 									ta.getInt(
-											R.styleable.CropImageView_cropGuidelines, options.guidelines.ordinal())];
+											R.styleable.ImageCropView_cropGuidelines, options.guidelines.ordinal())];
 					options.snapRadius =
-							ta.getDimension(R.styleable.CropImageView_cropSnapRadius, options.snapRadius);
+							ta.getDimension(R.styleable.ImageCropView_cropSnapRadius, options.snapRadius);
 					options.touchRadius =
-							ta.getDimension(R.styleable.CropImageView_cropTouchRadius, options.touchRadius);
+							ta.getDimension(R.styleable.ImageCropView_cropTouchRadius, options.touchRadius);
 					options.initialCropWindowPaddingRatio =
 							ta.getFloat(
-									R.styleable.CropImageView_cropInitialCropWindowPaddingRatio,
+									R.styleable.ImageCropView_cropInitialCropWindowPaddingRatio,
 									options.initialCropWindowPaddingRatio);
 					options.borderLineThickness =
 							ta.getDimension(
-									R.styleable.CropImageView_cropBorderLineThickness, options.borderLineThickness);
+									R.styleable.ImageCropView_cropBorderLineThickness, options.borderLineThickness);
 					options.borderLineColor =
-							ta.getInteger(R.styleable.CropImageView_cropBorderLineColor, options.borderLineColor);
+							ta.getInteger(R.styleable.ImageCropView_cropBorderLineColor, options.borderLineColor);
 					options.borderCornerThickness =
 							ta.getDimension(
-									R.styleable.CropImageView_cropBorderCornerThickness,
+									R.styleable.ImageCropView_cropBorderCornerThickness,
 									options.borderCornerThickness);
 					options.borderCornerOffset =
 							ta.getDimension(
-									R.styleable.CropImageView_cropBorderCornerOffset, options.borderCornerOffset);
+									R.styleable.ImageCropView_cropBorderCornerOffset, options.borderCornerOffset);
 					options.borderCornerLength =
 							ta.getDimension(
-									R.styleable.CropImageView_cropBorderCornerLength, options.borderCornerLength);
+									R.styleable.ImageCropView_cropBorderCornerLength, options.borderCornerLength);
 					options.borderCornerColor =
 							ta.getInteger(
-									R.styleable.CropImageView_cropBorderCornerColor, options.borderCornerColor);
+									R.styleable.ImageCropView_cropBorderCornerColor, options.borderCornerColor);
 					options.guidelinesThickness =
 							ta.getDimension(
-									R.styleable.CropImageView_cropGuidelinesThickness, options.guidelinesThickness);
+									R.styleable.ImageCropView_cropGuidelinesThickness, options.guidelinesThickness);
 					options.guidelinesColor =
-							ta.getInteger(R.styleable.CropImageView_cropGuidelinesColor, options.guidelinesColor);
+							ta.getInteger(R.styleable.ImageCropView_cropGuidelinesColor, options.guidelinesColor);
 					options.backgroundColor =
-							ta.getInteger(R.styleable.CropImageView_cropBackgroundColor, options.backgroundColor);
+							ta.getInteger(R.styleable.ImageCropView_cropBackgroundColor, options.backgroundColor);
 					options.showCropOverlay =
-							ta.getBoolean(R.styleable.CropImageView_cropShowCropOverlay, mShowCropOverlay);
+							ta.getBoolean(R.styleable.ImageCropView_cropShowCropOverlay, mShowCropOverlay);
 					options.showProgressBar =
-							ta.getBoolean(R.styleable.CropImageView_cropShowProgressBar, mShowProgressBar);
+							ta.getBoolean(R.styleable.ImageCropView_cropShowProgressBar, mShowProgressBar);
 					options.borderCornerThickness =
 							ta.getDimension(
-									R.styleable.CropImageView_cropBorderCornerThickness,
+									R.styleable.ImageCropView_cropBorderCornerThickness,
 									options.borderCornerThickness);
 					options.minCropWindowWidth =
 							(int)
 									ta.getDimension(
-											R.styleable.CropImageView_cropMinCropWindowWidth, options.minCropWindowWidth);
+											R.styleable.ImageCropView_cropMinCropWindowWidth, options.minCropWindowWidth);
 					options.minCropWindowHeight =
 							(int)
 									ta.getDimension(
-											R.styleable.CropImageView_cropMinCropWindowHeight,
+											R.styleable.ImageCropView_cropMinCropWindowHeight,
 											options.minCropWindowHeight);
 					options.minCropResultWidth =
 							(int)
 									ta.getFloat(
-											R.styleable.CropImageView_cropMinCropResultWidthPX,
+											R.styleable.ImageCropView_cropMinCropResultWidthPX,
 											options.minCropResultWidth);
 					options.minCropResultHeight =
 							(int)
 									ta.getFloat(
-											R.styleable.CropImageView_cropMinCropResultHeightPX,
+											R.styleable.ImageCropView_cropMinCropResultHeightPX,
 											options.minCropResultHeight);
 					options.maxCropResultWidth =
 							(int)
 									ta.getFloat(
-											R.styleable.CropImageView_cropMaxCropResultWidthPX,
+											R.styleable.ImageCropView_cropMaxCropResultWidthPX,
 											options.maxCropResultWidth);
 					options.maxCropResultHeight =
 							(int)
 									ta.getFloat(
-											R.styleable.CropImageView_cropMaxCropResultHeightPX,
+											R.styleable.ImageCropView_cropMaxCropResultHeightPX,
 											options.maxCropResultHeight);
 					options.flipHorizontally =
 							ta.getBoolean(
-									R.styleable.CropImageView_cropFlipHorizontally, options.flipHorizontally);
+									R.styleable.ImageCropView_cropFlipHorizontally, options.flipHorizontally);
 					options.flipVertically =
-							ta.getBoolean(R.styleable.CropImageView_cropFlipHorizontally, options.flipVertically);
+							ta.getBoolean(R.styleable.ImageCropView_cropFlipHorizontally, options.flipVertically);
 
 					mSaveBitmapToInstanceState =
 							ta.getBoolean(
-									R.styleable.CropImageView_cropSaveBitmapToInstanceState,
+									R.styleable.ImageCropView_cropSaveBitmapToInstanceState,
 									mSaveBitmapToInstanceState);
 
 					// if aspect ratio is set then set fixed to true
-					if (ta.hasValue(R.styleable.CropImageView_cropAspectRatioX)
-							&& ta.hasValue(R.styleable.CropImageView_cropAspectRatioX)
-							&& !ta.hasValue(R.styleable.CropImageView_cropFixAspectRatio)) {
+					if (ta.hasValue(R.styleable.ImageCropView_cropAspectRatioX)
+							&& ta.hasValue(R.styleable.ImageCropView_cropAspectRatioX)
+							&& !ta.hasValue(R.styleable.ImageCropView_cropFixAspectRatio)) {
 						options.fixAspectRatio = true;
 					}
 				} finally {
@@ -392,9 +392,9 @@ public class CropImageView extends FrameLayout {
 		mImageView = v.findViewById(R.id.ImageView_image);
 		mImageView.setScaleType(ImageView.ScaleType.MATRIX);
 
-		mCropOverlayView = v.findViewById(R.id.CropOverlayView);
-		mCropOverlayView.setCropWindowChangeListener(
-				new CropOverlayView.CropWindowChangeListener() {
+		mOverlayViewCrop = v.findViewById(R.id.CropOverlayView);
+		mOverlayViewCrop.setCropWindowChangeListener(
+				new OverlayViewCrop.CropWindowChangeListener() {
 					@Override
 					public void onCropWindowChanged(boolean inProgress) {
 						handleCropWindowChanged(inProgress, true);
@@ -408,7 +408,7 @@ public class CropImageView extends FrameLayout {
 						}
 					}
 				});
-		mCropOverlayView.setInitialAttributeValues(options);
+		mOverlayViewCrop.setInitialAttributeValues(options);
 
 		mProgressBar = v.findViewById(R.id.CropProgressBar);
 		setProgressBarVisibility();
@@ -429,7 +429,7 @@ public class CropImageView extends FrameLayout {
 			mScaleType = scaleType;
 			mZoom = 1;
 			mZoomOffsetX = mZoomOffsetY = 0;
-			mCropOverlayView.resetCropOverlayView();
+			mOverlayViewCrop.resetCropOverlayView();
 			requestLayout();
 		}
 	}
@@ -438,7 +438,7 @@ public class CropImageView extends FrameLayout {
 	 * The shape of the cropping area - rectangle/circular.
 	 */
 	public CropShape getCropShape() {
-		return mCropOverlayView.getCropShape();
+		return mOverlayViewCrop.getCropShape();
 	}
 
 	/**
@@ -446,7 +446,7 @@ public class CropImageView extends FrameLayout {
 	 * To set square/circle crop shape set aspect ratio to 1:1.
 	 */
 	public void setCropShape(CropShape cropShape) {
-		mCropOverlayView.setCropShape(cropShape);
+		mOverlayViewCrop.setCropShape(cropShape);
 	}
 
 	/**
@@ -463,7 +463,7 @@ public class CropImageView extends FrameLayout {
 		if (mAutoZoomEnabled != autoZoomEnabled) {
 			mAutoZoomEnabled = autoZoomEnabled;
 			handleCropWindowChanged(false, false);
-			mCropOverlayView.invalidate();
+			mOverlayViewCrop.invalidate();
 		}
 	}
 
@@ -471,9 +471,9 @@ public class CropImageView extends FrameLayout {
 	 * Set multi touch functionality to enabled/disabled.
 	 */
 	public void setMultiTouchEnabled(boolean multiTouchEnabled) {
-		if (mCropOverlayView.setMultiTouchEnabled(multiTouchEnabled)) {
+		if (mOverlayViewCrop.setMultiTouchEnabled(multiTouchEnabled)) {
 			handleCropWindowChanged(false, false);
-			mCropOverlayView.invalidate();
+			mOverlayViewCrop.invalidate();
 		}
 	}
 
@@ -491,7 +491,7 @@ public class CropImageView extends FrameLayout {
 		if (mMaxZoom != maxZoom && maxZoom > 0) {
 			mMaxZoom = maxZoom;
 			handleCropWindowChanged(false, false);
-			mCropOverlayView.invalidate();
+			mOverlayViewCrop.invalidate();
 		}
 	}
 
@@ -500,7 +500,7 @@ public class CropImageView extends FrameLayout {
 	 * (in pixels).<br>
 	 */
 	public void setMinCropResultSize(int minCropResultWidth, int minCropResultHeight) {
-		mCropOverlayView.setMinCropResultSize(minCropResultWidth, minCropResultHeight);
+		mOverlayViewCrop.setMinCropResultSize(minCropResultWidth, minCropResultHeight);
 	}
 
 	/**
@@ -508,7 +508,7 @@ public class CropImageView extends FrameLayout {
 	 * (in pixels).<br>
 	 */
 	public void setMaxCropResultSize(int maxCropResultWidth, int maxCropResultHeight) {
-		mCropOverlayView.setMaxCropResultSize(maxCropResultWidth, maxCropResultHeight);
+		mOverlayViewCrop.setMaxCropResultSize(maxCropResultWidth, maxCropResultHeight);
 	}
 
 	/**
@@ -536,7 +536,7 @@ public class CropImageView extends FrameLayout {
 	 * be changed.
 	 */
 	public boolean isFixAspectRatio() {
-		return mCropOverlayView.isFixAspectRatio();
+		return mOverlayViewCrop.isFixAspectRatio();
 	}
 
 	/**
@@ -544,7 +544,7 @@ public class CropImageView extends FrameLayout {
 	 * it to be changed.
 	 */
 	public void setFixedAspectRatio(boolean fixAspectRatio) {
-		mCropOverlayView.setFixedAspectRatio(fixAspectRatio);
+		mOverlayViewCrop.setFixedAspectRatio(fixAspectRatio);
 	}
 
 	/**
@@ -585,7 +585,7 @@ public class CropImageView extends FrameLayout {
 	 * Get the current guidelines option set.
 	 */
 	public Guidelines getGuidelines() {
-		return mCropOverlayView.getGuidelines();
+		return mOverlayViewCrop.getGuidelines();
 	}
 
 	/**
@@ -593,14 +593,14 @@ public class CropImageView extends FrameLayout {
 	 * application.
 	 */
 	public void setGuidelines(Guidelines guidelines) {
-		mCropOverlayView.setGuidelines(guidelines);
+		mOverlayViewCrop.setGuidelines(guidelines);
 	}
 
 	/**
 	 * both the X and Y values of the aspectRatio.
 	 */
 	public Pair<Integer, Integer> getAspectRatio() {
-		return new Pair<>(mCropOverlayView.getAspectRatioX(), mCropOverlayView.getAspectRatioY());
+		return new Pair<>(mOverlayViewCrop.getAspectRatioX(), mOverlayViewCrop.getAspectRatioY());
 	}
 
 	/**
@@ -611,8 +611,8 @@ public class CropImageView extends FrameLayout {
 	 * @param aspectRatioY int that specifies the new Y value of the aspect ratio
 	 */
 	public void setAspectRatio(int aspectRatioX, int aspectRatioY) {
-		mCropOverlayView.setAspectRatioX(aspectRatioX);
-		mCropOverlayView.setAspectRatioY(aspectRatioY);
+		mOverlayViewCrop.setAspectRatioX(aspectRatioX);
+		mOverlayViewCrop.setAspectRatioY(aspectRatioY);
 		setFixedAspectRatio(true);
 	}
 
@@ -620,8 +620,8 @@ public class CropImageView extends FrameLayout {
 	 * Clears set aspect ratio values and sets fixed aspect ratio to FALSE.
 	 */
 	public void clearAspectRatio() {
-		mCropOverlayView.setAspectRatioX(1);
-		mCropOverlayView.setAspectRatioY(1);
+		mOverlayViewCrop.setAspectRatioX(1);
+		mOverlayViewCrop.setAspectRatioY(1);
 		setFixedAspectRatio(false);
 	}
 
@@ -632,7 +632,7 @@ public class CropImageView extends FrameLayout {
 	 */
 	public void setSnapRadius(float snapRadius) {
 		if (snapRadius >= 0) {
-			mCropOverlayView.setSnapRadius(snapRadius);
+			mOverlayViewCrop.setSnapRadius(snapRadius);
 		}
 	}
 
@@ -751,9 +751,9 @@ public class CropImageView extends FrameLayout {
 				points,
 				orgWidth,
 				orgHeight,
-				mCropOverlayView.isFixAspectRatio(),
-				mCropOverlayView.getAspectRatioX(),
-				mCropOverlayView.getAspectRatioY());
+				mOverlayViewCrop.isFixAspectRatio(),
+				mOverlayViewCrop.getAspectRatioX(),
+				mOverlayViewCrop.getAspectRatioY());
 	}
 
 	/**
@@ -762,10 +762,10 @@ public class CropImageView extends FrameLayout {
 	 * @return a Rect instance containing cropped area boundaries of the source Bitmap
 	 */
 	public RectF getCropWindowRect() {
-		if (mCropOverlayView == null) {
+		if (mOverlayViewCrop == null) {
 			return null;
 		}
-		return mCropOverlayView.getCropWindowRect();
+		return mOverlayViewCrop.getCropWindowRect();
 	}
 
 	/**
@@ -779,7 +779,7 @@ public class CropImageView extends FrameLayout {
 	public float[] getCropPoints() {
 
 		// Get crop window position relative to the displayed image.
-		RectF cropWindowRect = mCropOverlayView.getCropWindowRect();
+		RectF cropWindowRect = mOverlayViewCrop.getCropWindowRect();
 
 		float[] points =
 				new float[]{
@@ -810,7 +810,7 @@ public class CropImageView extends FrameLayout {
 	 * @param rect window rectangle (position and size) relative to source bitmap
 	 */
 	public void setCropRect(Rect rect) {
-		mCropOverlayView.setInitialCropWindowRect(rect);
+		mOverlayViewCrop.setInitialCropWindowRect(rect);
 	}
 
 	/**
@@ -824,7 +824,7 @@ public class CropImageView extends FrameLayout {
 		mFlipHorizontally = false;
 		mFlipVertically = false;
 		applyImageMatrix(getWidth(), getHeight(), false, false);
-		mCropOverlayView.resetCropWindowRect();
+		mOverlayViewCrop.resetCropWindowRect();
 	}
 
 	/**
@@ -876,9 +876,9 @@ public class CropImageView extends FrameLayout {
 								mDegreesRotated,
 								orgWidth,
 								orgHeight,
-								mCropOverlayView.isFixAspectRatio(),
-								mCropOverlayView.getAspectRatioX(),
-								mCropOverlayView.getAspectRatioY(),
+								mOverlayViewCrop.isFixAspectRatio(),
+								mOverlayViewCrop.getAspectRatioX(),
+								mOverlayViewCrop.getAspectRatioY(),
 								reqWidth,
 								reqHeight,
 								mFlipHorizontally,
@@ -890,9 +890,9 @@ public class CropImageView extends FrameLayout {
 								mBitmap,
 								getCropPoints(),
 								mDegreesRotated,
-								mCropOverlayView.isFixAspectRatio(),
-								mCropOverlayView.getAspectRatioX(),
-								mCropOverlayView.getAspectRatioY(),
+								mOverlayViewCrop.isFixAspectRatio(),
+								mOverlayViewCrop.getAspectRatioX(),
+								mOverlayViewCrop.getAspectRatioY(),
 								mFlipHorizontally,
 								mFlipVertically)
 								.bitmap;
@@ -1065,7 +1065,7 @@ public class CropImageView extends FrameLayout {
 	 * @param bitmap the Bitmap to set
 	 */
 	public void setImageBitmap(Bitmap bitmap) {
-		mCropOverlayView.setInitialCropWindowRect(null);
+		mOverlayViewCrop.setInitialCropWindowRect(null);
 		setBitmap(bitmap, 0, null, 1, 0);
 	}
 
@@ -1089,7 +1089,7 @@ public class CropImageView extends FrameLayout {
 		} else {
 			setBitmap = bitmap;
 		}
-		mCropOverlayView.setInitialCropWindowRect(null);
+		mOverlayViewCrop.setInitialCropWindowRect(null);
 		setBitmap(setBitmap, 0, null, 1, degreesRotated);
 	}
 
@@ -1100,7 +1100,7 @@ public class CropImageView extends FrameLayout {
 	 */
 	public void setImageResource(int resId) {
 		if (resId != 0) {
-			mCropOverlayView.setInitialCropWindowRect(null);
+			mOverlayViewCrop.setInitialCropWindowRect(null);
 			Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
 			setBitmap(bitmap, resId, null, 1, 0);
 		}
@@ -1127,7 +1127,7 @@ public class CropImageView extends FrameLayout {
 			clearImageInt();
 			mRestoreCropWindowRect = null;
 			mRestoreDegreesRotated = 0;
-			mCropOverlayView.setInitialCropWindowRect(null);
+			mOverlayViewCrop.setInitialCropWindowRect(null);
 			mBitmapLoadingWorkerTask = new WeakReference<>(new BitmapLoadingWorkerTask(this, uri));
 			mBitmapLoadingWorkerTask.get().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 			setProgressBarVisibility();
@@ -1139,7 +1139,7 @@ public class CropImageView extends FrameLayout {
 	 */
 	public void clearImage() {
 		clearImageInt();
-		mCropOverlayView.setInitialCropWindowRect(null);
+		mOverlayViewCrop.setInitialCropWindowRect(null);
 	}
 
 	/**
@@ -1158,9 +1158,9 @@ public class CropImageView extends FrameLayout {
 			}
 
 			boolean flipAxes =
-					!mCropOverlayView.isFixAspectRatio()
+					!mOverlayViewCrop.isFixAspectRatio()
 							&& ((degrees > 45 && degrees < 135) || (degrees > 215 && degrees < 305));
-			BitmapUtils.RECT.set(mCropOverlayView.getCropWindowRect());
+			BitmapUtils.RECT.set(mOverlayViewCrop.getCropWindowRect());
 			float halfWidth = (flipAxes ? BitmapUtils.RECT.height() : BitmapUtils.RECT.width()) / 2f;
 			float halfHeight = (flipAxes ? BitmapUtils.RECT.width() : BitmapUtils.RECT.height()) / 2f;
 			if (flipAxes) {
@@ -1212,14 +1212,14 @@ public class CropImageView extends FrameLayout {
 					BitmapUtils.POINTS2[0] + halfWidth,
 					BitmapUtils.POINTS2[1] + halfHeight);
 
-			mCropOverlayView.resetCropOverlayView();
-			mCropOverlayView.setCropWindowRect(BitmapUtils.RECT);
+			mOverlayViewCrop.resetCropOverlayView();
+			mOverlayViewCrop.setCropWindowRect(BitmapUtils.RECT);
 			applyImageMatrix(getWidth(), getHeight(), true, false);
 			handleCropWindowChanged(false, false);
 
 			// make sure the crop window rectangle is within the cropping image bounds after all the
 			// changes
-			mCropOverlayView.fixCurrentCropWindowRect();
+			mOverlayViewCrop.fixCurrentCropWindowRect();
 		}
 	}
 
@@ -1315,8 +1315,8 @@ public class CropImageView extends FrameLayout {
 
 			applyImageMatrix(getWidth(), getHeight(), true, false);
 
-			if (mCropOverlayView != null) {
-				mCropOverlayView.resetCropOverlayView();
+			if (mOverlayViewCrop != null) {
+				mOverlayViewCrop.resetCropOverlayView();
 				setCropOverlayVisibility();
 			}
 		}
@@ -1402,9 +1402,9 @@ public class CropImageView extends FrameLayout {
 										mDegreesRotated,
 										orgWidth,
 										orgHeight,
-										mCropOverlayView.isFixAspectRatio(),
-										mCropOverlayView.getAspectRatioX(),
-										mCropOverlayView.getAspectRatioY(),
+										mOverlayViewCrop.isFixAspectRatio(),
+										mOverlayViewCrop.getAspectRatioX(),
+										mOverlayViewCrop.getAspectRatioY(),
 										reqWidth,
 										reqHeight,
 										mFlipHorizontally,
@@ -1421,9 +1421,9 @@ public class CropImageView extends FrameLayout {
 										bitmap,
 										getCropPoints(),
 										mDegreesRotated,
-										mCropOverlayView.isFixAspectRatio(),
-										mCropOverlayView.getAspectRatioX(),
-										mCropOverlayView.getAspectRatioY(),
+										mOverlayViewCrop.isFixAspectRatio(),
+										mOverlayViewCrop.getAspectRatioX(),
+										mOverlayViewCrop.getAspectRatioY(),
 										reqWidth,
 										reqHeight,
 										mFlipHorizontally,
@@ -1468,15 +1468,15 @@ public class CropImageView extends FrameLayout {
 		bundle.putInt("LOADED_IMAGE_RESOURCE", mImageResource);
 		bundle.putInt("LOADED_SAMPLE_SIZE", mLoadedSampleSize);
 		bundle.putInt("DEGREES_ROTATED", mDegreesRotated);
-		bundle.putParcelable("INITIAL_CROP_RECT", mCropOverlayView.getInitialCropWindowRect());
+		bundle.putParcelable("INITIAL_CROP_RECT", mOverlayViewCrop.getInitialCropWindowRect());
 
-		BitmapUtils.RECT.set(mCropOverlayView.getCropWindowRect());
+		BitmapUtils.RECT.set(mOverlayViewCrop.getCropWindowRect());
 
 		mImageMatrix.invert(mImageInverseMatrix);
 		mImageInverseMatrix.mapRect(BitmapUtils.RECT);
 
 		bundle.putParcelable("CROP_WINDOW_RECT", BitmapUtils.RECT);
-		bundle.putString("CROP_SHAPE", mCropOverlayView.getCropShape().name());
+		bundle.putString("CROP_SHAPE", mOverlayViewCrop.getCropShape().name());
 		bundle.putBoolean("CROP_AUTO_ZOOM_ENABLED", mAutoZoomEnabled);
 		bundle.putInt("CROP_MAX_ZOOM", mMaxZoom);
 		bundle.putBoolean("CROP_FLIP_HORIZONTALLY", mFlipHorizontally);
@@ -1530,7 +1530,7 @@ public class CropImageView extends FrameLayout {
 				Rect initialCropRect = bundle.getParcelable("INITIAL_CROP_RECT");
 				if (initialCropRect != null
 						&& (initialCropRect.width() > 0 || initialCropRect.height() > 0)) {
-					mCropOverlayView.setInitialCropWindowRect(initialCropRect);
+					mOverlayViewCrop.setInitialCropWindowRect(initialCropRect);
 				}
 
 				RectF cropWindowRect = bundle.getParcelable("CROP_WINDOW_RECT");
@@ -1538,7 +1538,7 @@ public class CropImageView extends FrameLayout {
 					mRestoreCropWindowRect = cropWindowRect;
 				}
 
-				mCropOverlayView.setCropShape(CropShape.valueOf(bundle.getString("CROP_SHAPE")));
+				mOverlayViewCrop.setCropShape(CropShape.valueOf(bundle.getString("CROP_SHAPE")));
 
 				mAutoZoomEnabled = bundle.getBoolean("CROP_AUTO_ZOOM_ENABLED");
 				mMaxZoom = bundle.getInt("CROP_MAX_ZOOM");
@@ -1636,9 +1636,9 @@ public class CropImageView extends FrameLayout {
 						applyImageMatrix(r - l, b - t, true, false);
 					}
 					mImageMatrix.mapRect(mRestoreCropWindowRect);
-					mCropOverlayView.setCropWindowRect(mRestoreCropWindowRect);
+					mOverlayViewCrop.setCropWindowRect(mRestoreCropWindowRect);
 					handleCropWindowChanged(false, false);
-					mCropOverlayView.fixCurrentCropWindowRect();
+					mOverlayViewCrop.fixCurrentCropWindowRect();
 					mRestoreCropWindowRect = null;
 				} else if (mSizeChanged) {
 					mSizeChanged = false;
@@ -1677,7 +1677,7 @@ public class CropImageView extends FrameLayout {
 		int height = getHeight();
 		if (mBitmap != null && width > 0 && height > 0) {
 
-			RectF cropRect = mCropOverlayView.getCropWindowRect();
+			RectF cropRect = mOverlayViewCrop.getCropWindowRect();
 			if (inProgress) {
 				if (cropRect.left < 0
 						|| cropRect.top < 0
@@ -1714,7 +1714,7 @@ public class CropImageView extends FrameLayout {
 					if (animate) {
 						if (mAnimation == null) {
 							// lazy create animation single instance
-							mAnimation = new ImageCropAnimation(mImageView, mCropOverlayView);
+							mAnimation = new ImageCropAnimation(mImageView, mOverlayViewCrop);
 						}
 						// set the state for animation to start from
 						mAnimation.setStartState(mImagePoints, mImageMatrix);
@@ -1741,7 +1741,7 @@ public class CropImageView extends FrameLayout {
 		if (mBitmap != null && width > 0 && height > 0) {
 
 			mImageMatrix.invert(mImageInverseMatrix);
-			RectF cropRect = mCropOverlayView.getCropWindowRect();
+			RectF cropRect = mOverlayViewCrop.getCropWindowRect();
 			mImageInverseMatrix.mapRect(cropRect);
 
 			mImageMatrix.reset();
@@ -1820,9 +1820,9 @@ public class CropImageView extends FrameLayout {
 			// apply to zoom offset translate and update the crop rectangle to offset correctly
 			mImageMatrix.postTranslate(mZoomOffsetX * scaleX, mZoomOffsetY * scaleY);
 			cropRect.offset(mZoomOffsetX * scaleX, mZoomOffsetY * scaleY);
-			mCropOverlayView.setCropWindowRect(cropRect);
+			mOverlayViewCrop.setCropWindowRect(cropRect);
 			mapImagePointsByImageMatrix();
-			mCropOverlayView.invalidate();
+			mOverlayViewCrop.invalidate();
 
 			// set matrix to apply
 			if (animate) {
@@ -1895,8 +1895,8 @@ public class CropImageView extends FrameLayout {
 	 * Set visibility of crop overlay to hide it when there is no image or specificly set by client.
 	 */
 	private void setCropOverlayVisibility() {
-		if (mCropOverlayView != null) {
-			mCropOverlayView.setVisibility(mShowCropOverlay && mBitmap != null ? VISIBLE : INVISIBLE);
+		if (mOverlayViewCrop != null) {
+			mOverlayViewCrop.setVisibility(mShowCropOverlay && mBitmap != null ? VISIBLE : INVISIBLE);
 		}
 	}
 
@@ -1923,12 +1923,12 @@ public class CropImageView extends FrameLayout {
 					100f * mLoadedSampleSize / BitmapUtils.getRectWidth(mScaleImagePoints);
 			float scaleFactorHeight =
 					100f * mLoadedSampleSize / BitmapUtils.getRectHeight(mScaleImagePoints);
-			mCropOverlayView.setCropWindowLimits(
+			mOverlayViewCrop.setCropWindowLimits(
 					getWidth(), getHeight(), scaleFactorWidth, scaleFactorHeight);
 		}
 
 		// set the bitmap rectangle and update the crop window after scale factor is set
-		mCropOverlayView.setBounds(clear ? null : mImagePoints, getWidth(), getHeight());
+		mOverlayViewCrop.setBounds(clear ? null : mImagePoints, getWidth(), getHeight());
 	}
 	// endregion
 
@@ -2108,7 +2108,7 @@ public class CropImageView extends FrameLayout {
 		 * @param uri   the URI of the image that was loading
 		 * @param error if error occurred during loading will contain the error, otherwise null.
 		 */
-		void onSetImageUriComplete(CropImageView view, Uri uri, Exception error);
+		void onSetImageUriComplete(ImageCropView view, Uri uri, Exception error);
 	}
 	// endregion
 
@@ -2127,7 +2127,7 @@ public class CropImageView extends FrameLayout {
 		 * @param view   The crop image view that cropping of image was complete.
 		 * @param result the crop image result data (with cropped image or error)
 		 */
-		void onCropImageComplete(CropImageView view, CropResult result);
+		void onCropImageComplete(ImageCropView view, CropResult result);
 	}
 	// endregion
 

@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.ImageCrop;
 import com.theartofdev.edmodo.cropper.ImageCropOptions;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.theartofdev.edmodo.cropper.ImageCropView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
 	 */
 	public void onSelectImageClick(View view) {
 		new ImageCropOptions.Builder(null)
-				.setGuidelines(CropImageView.Guidelines.ON)
+				.setGuidelines(ImageCropView.Guidelines.ON)
 				.setActivityTitle("My Crop")
-				.setCropShape(CropImageView.CropShape.OVAL)
+				.setCropShape(ImageCropView.CropShape.OVAL)
 				.setCropMenuCropButtonTitle("Done")
 				.setRequestedSize(400, 400)
 				.setCropMenuCropButtonIcon(R.drawable.ic_launcher)

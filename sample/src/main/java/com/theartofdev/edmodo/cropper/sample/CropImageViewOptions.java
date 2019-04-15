@@ -14,16 +14,16 @@ package com.theartofdev.edmodo.cropper.sample;
 
 import android.util.Pair;
 
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.theartofdev.edmodo.cropper.ImageCropView;
 
 /** The crop image view options that can be changed live. */
 final class CropImageViewOptions {
 
-  public CropImageView.ScaleType scaleType = CropImageView.ScaleType.CENTER_INSIDE;
+  public ImageCropView.ScaleType scaleType = ImageCropView.ScaleType.CENTER_INSIDE;
 
-  public CropImageView.CropShape cropShape = CropImageView.CropShape.RECTANGLE;
+  public ImageCropView.CropShape cropShape = ImageCropView.CropShape.RECTANGLE;
 
-  public CropImageView.Guidelines guidelines = CropImageView.Guidelines.ON_TOUCH;
+  public ImageCropView.Guidelines guidelines = ImageCropView.Guidelines.ON_TOUCH;
 
   public Pair<Integer, Integer> aspectRatio = new Pair<>(1, 1);
 

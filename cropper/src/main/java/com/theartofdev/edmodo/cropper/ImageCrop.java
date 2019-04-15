@@ -390,7 +390,7 @@ public final class ImageCrop {
 	/**
 	 * Result data of Crop Image Activity.
 	 */
-	public static final class ActivityResult extends CropImageView.CropResult implements Parcelable {
+	public static final class ActivityResult extends ImageCropView.CropResult implements Parcelable {
 
 		public static final Creator<ActivityResult> CREATOR =
 				new Creator<ActivityResult>() {

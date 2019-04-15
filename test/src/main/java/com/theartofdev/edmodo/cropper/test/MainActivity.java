@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.example.test.R;
 import com.theartofdev.edmodo.cropper.ImageCrop;
 import com.theartofdev.edmodo.cropper.ImageCropOptions;
-import com.theartofdev.edmodo.cropper.CropImageView;
+import com.theartofdev.edmodo.cropper.ImageCropView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 	 * Start pick image activity with chooser.
 	 */
 	public void onSelectImageClick(View view) {
-		new ImageCropOptions.Builder(null).setGuidelines(CropImageView.Guidelines.ON).start(this);
+		new ImageCropOptions.Builder(null).setGuidelines(ImageCropView.Guidelines.ON).start(this);
 	}
 
 	@Override
