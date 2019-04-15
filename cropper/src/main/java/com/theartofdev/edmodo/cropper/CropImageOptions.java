@@ -34,6 +34,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_BUNDLE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_SOURCE;
 import static com.theartofdev.edmodo.cropper.CropImage.*;
 
 /**
@@ -440,7 +444,7 @@ public class CropImageOptions implements Parcelable {
 			Bundle bundle = new Bundle();
 			bundle.putParcelable(CROP_IMAGE_EXTRA_SOURCE, mSource);
 			bundle.putParcelable(CROP_IMAGE_EXTRA_OPTIONS, mOptions);
-			intent.putExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE, bundle);
+			intent.putExtra(CROP_IMAGE_EXTRA_BUNDLE, bundle);
 			return intent;
 		}
 

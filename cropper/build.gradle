@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 // https://docs.gradle.org/current/userguide/publishing_maven.html
 // http://www.flexlabs.org/2013/06/using-local-aar-android-library-packages-in-gradle-builds
 apply plugin: 'maven-publish'
@@ -43,6 +45,7 @@ publishing {
 dependencies {
     api 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.30'
 }
 //apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
 //上面一行可以代替下面所有代码
@@ -102,5 +105,8 @@ generateRelease.dependsOn(zipRelease)
 artifacts {
     archives androidSourcesJar
     archives androidJavadocsJar
+}
+repositories {
+    mavenCentral()
 }
 

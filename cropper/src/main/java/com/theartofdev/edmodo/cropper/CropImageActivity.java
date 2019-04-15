@@ -36,6 +36,15 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
 
+import static com.theartofdev.edmodo.cropper.Constants.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_BUNDLE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_RESULT;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_SOURCE;
+import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUEST_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_PERMISSIONS_REQUEST_CODE;
+
 /**
  * Built-in activity for image cropping.<br>
  * Use {@link CropImage#activity(Uri)} to create a builder to start this activity.
@@ -67,9 +76,9 @@ public class CropImageActivity extends AppCompatActivity
 
 		mCropImageView = findViewById(R.id.cropImageView);
 
-		Bundle bundle = getIntent().getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE);
-		mCropImageUri = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_SOURCE);
-		mOptions = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS);
+		Bundle bundle = getIntent().getBundleExtra(CROP_IMAGE_EXTRA_BUNDLE);
+		mCropImageUri = bundle.getParcelable(CROP_IMAGE_EXTRA_SOURCE);
+		mOptions = bundle.getParcelable(CROP_IMAGE_EXTRA_OPTIONS);
 
 		if (savedInstanceState == null) {
 			if (mCropImageUri == null || mCropImageUri.equals(Uri.EMPTY)) {
@@ -77,7 +86,7 @@ public class CropImageActivity extends AppCompatActivity
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.CAMERA},
-							CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+							CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
 				} else {
 					CropImage.startPickImageActivity(this);
 				}
@@ -85,7 +94,7 @@ public class CropImageActivity extends AppCompatActivity
 				// request permissions and handle the result in onRequestPermissionsResult()
 				requestPermissions(
 						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-						CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+						PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
 			} else {
 				// no permissions required or already grunted, can start crop image activity
 				mCropImageView.setImageUriAsync(mCropImageUri);
@@ -199,7 +208,7 @@ public class CropImageActivity extends AppCompatActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		// handle result of pick image chooser
-		if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE) {
+		if (requestCode == PICK_IMAGE_CHOOSER_REQUEST_CODE) {
 			if (resultCode == Activity.RESULT_CANCELED) {
 				// User cancelled the picker. We don't have anything to crop
 				setResultCancel();
@@ -214,7 +223,7 @@ public class CropImageActivity extends AppCompatActivity
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-							CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+							PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
 				} else {
 					// no permissions required or already grunted, can start crop image activity
 					mCropImageView.setImageUriAsync(mCropImageUri);
@@ -226,7 +235,7 @@ public class CropImageActivity extends AppCompatActivity
 	@Override
 	public void onRequestPermissionsResult(
 			int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-		if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+		if (requestCode == PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
 			if (mCropImageUri != null
 					&& grantResults.length > 0
 					&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -238,7 +247,7 @@ public class CropImageActivity extends AppCompatActivity
 			}
 		}
 
-		if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+		if (requestCode == CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
 			// Irrespective of whether camera permission was given or not, we show the picker
 			// The picker will not add the camera intent if permission is not available
 			CropImage.startPickImageActivity(this);
@@ -315,7 +324,7 @@ public class CropImageActivity extends AppCompatActivity
 	 * Result with cropped image data or error if failed.
 	 */
 	protected void setResult(Uri uri, Exception error, int sampleSize) {
-		int resultCode = error == null ? RESULT_OK : CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
+		int resultCode = error == null ? RESULT_OK : CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
 		setResult(resultCode, getResultIntent(uri, error, sampleSize));
 		finish();
 	}
@@ -344,7 +353,7 @@ public class CropImageActivity extends AppCompatActivity
 						sampleSize);
 		Intent intent = new Intent();
 		intent.putExtras(getIntent());
-		intent.putExtra(CropImage.CROP_IMAGE_EXTRA_RESULT, result);
+		intent.putExtra(CROP_IMAGE_EXTRA_RESULT, result);
 		return intent;
 	}
 

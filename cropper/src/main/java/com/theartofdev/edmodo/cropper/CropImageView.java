@@ -40,6 +40,9 @@ import android.widget.ProgressBar;
 import java.lang.ref.WeakReference;
 import java.util.UUID;
 
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_BUNDLE;
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_OPTIONS;
+
 /**
  * Custom view that provides cropping capabilities to an image.
  */
@@ -245,9 +248,9 @@ public class CropImageView extends FrameLayout {
 		CropImageOptions options = null;
 		Intent intent = context instanceof Activity ? ((Activity) context).getIntent() : null;
 		if (intent != null) {
-			Bundle bundle = intent.getBundleExtra(CropImage.CROP_IMAGE_EXTRA_BUNDLE);
+			Bundle bundle = intent.getBundleExtra(CROP_IMAGE_EXTRA_BUNDLE);
 			if (bundle != null) {
-				options = bundle.getParcelable(CropImage.CROP_IMAGE_EXTRA_OPTIONS);
+				options = bundle.getParcelable(CROP_IMAGE_EXTRA_OPTIONS);
 			}
 		}
 

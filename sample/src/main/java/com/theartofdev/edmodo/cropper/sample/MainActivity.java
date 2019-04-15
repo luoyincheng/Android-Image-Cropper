@@ -34,6 +34,10 @@ import com.example.croppersample.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import static com.theartofdev.edmodo.cropper.Constants.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUEST_CODE;
+import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_PERMISSIONS_REQUEST_CODE;
+
 public class MainActivity extends AppCompatActivity {
 
   // region: Fields and Consts
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE
+    if (requestCode == PICK_IMAGE_CHOOSER_REQUEST_CODE
         && resultCode == AppCompatActivity.RESULT_OK) {
       Uri imageUri = CropImage.getPickImageResultUri(this, data);
 
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         mCropImageUri = imageUri;
         requestPermissions(
             new String[] {Manifest.permission.READ_EXTERNAL_STORAGE},
-            CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
       } else {
 
         mCurrentFragment.setImageUri(imageUri);
@@ -136,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
   @Override
   public void onRequestPermissionsResult(
       int requestCode, String permissions[], int[] grantResults) {
-    if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+    if (requestCode == CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
       if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         CropImage.startPickImageActivity(this);
       } else {
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             .show();
       }
     }
-    if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+    if (requestCode == PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
       if (mCropImageUri != null
           && grantResults.length > 0
           && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -163,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         if (CropImage.isExplicitCameraPermissionRequired(this)) {
           requestPermissions(
               new String[] {Manifest.permission.CAMERA},
-              CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+              CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
         } else {
           CropImage.startPickImageActivity(this);
         }

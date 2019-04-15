@@ -46,6 +46,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_EXTRA_RESULT;
+import static com.theartofdev.edmodo.cropper.Constants.PICK_IMAGE_CHOOSER_REQUEST_CODE;
+
 /**
  * Helper to simplify crop image work like starting pick-image acitvity and handling camera/gallery
  * intents.<br>
@@ -58,56 +61,6 @@ import androidx.fragment.app.Fragment;
  */
 @SuppressWarnings("WeakerAccess, unused")
 public final class CropImage {
-
-	// region: Fields and Consts
-
-	/**
-	 * The key used to pass crop image source URI to {@link CropImageActivity}.
-	 */
-	public static final String CROP_IMAGE_EXTRA_SOURCE = "CROP_IMAGE_EXTRA_SOURCE";
-
-	/**
-	 * The key used to pass crop image options to {@link CropImageActivity}.
-	 */
-	public static final String CROP_IMAGE_EXTRA_OPTIONS = "CROP_IMAGE_EXTRA_OPTIONS";
-
-	/**
-	 * The key used to pass crop image bundle data to {@link CropImageActivity}.
-	 */
-	public static final String CROP_IMAGE_EXTRA_BUNDLE = "CROP_IMAGE_EXTRA_BUNDLE";
-
-	/**
-	 * The key used to pass crop image result data back from {@link CropImageActivity}.
-	 */
-	public static final String CROP_IMAGE_EXTRA_RESULT = "CROP_IMAGE_EXTRA_RESULT";
-
-	/**
-	 * The request code used to start pick image activity to be used on result to identify the this
-	 * specific request.
-	 */
-	public static final int PICK_IMAGE_CHOOSER_REQUEST_CODE = 200;
-
-	/**
-	 * The request code used to request permission to pick image from external storage.
-	 */
-	public static final int PICK_IMAGE_PERMISSIONS_REQUEST_CODE = 201;
-
-	/**
-	 * The request code used to request permission to capture image from camera.
-	 */
-	public static final int CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE = 2011;
-
-	/**
-	 * The request code used to start {@link CropImageActivity} to be used on result to identify the
-	 * this specific request.
-	 */
-	public static final int CROP_IMAGE_ACTIVITY_REQUEST_CODE = 203;
-
-	/**
-	 * The result code used to return error from {@link CropImageActivity}.
-	 */
-	public static final int CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE = 204;
-	// endregion
 
 	private CropImage() {
 	}

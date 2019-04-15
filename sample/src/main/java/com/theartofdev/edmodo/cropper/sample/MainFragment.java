@@ -29,6 +29,8 @@ import com.example.croppersample.R;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
+
 /** The fragment that will show the Image Cropping UI by requested preset. */
 public final class MainFragment extends Fragment
     implements CropImageView.OnSetImageUriCompleteListener,
@@ -200,7 +202,7 @@ public final class MainFragment extends Fragment
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+    if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
       CropImage.ActivityResult result = CropImage.getActivityResult(data);
       handleCropResult(result);
     }
