@@ -231,7 +231,8 @@ public class ImageCropView extends FrameLayout {
 	 * Task used to load bitmap async from UI thread
 	 */
 	// TODO: 19-4-15 weakreference的主要作用，handler内存泄露
-	// TODO: 19-4-15 让显示过重的任务降低帧率，比如滑动太快的话调用ontouchevent很快，这时候就会多次调用可能很耗时的计算任务、、、
+	// TODO: 19-4-15 让显示过重的任务降低帧率，比如滑动太快的话调用ontouchevent很快，
+	// 这时候就会多次调用可能很耗时的计算任务、、、
 	// TODO: 19-4-15 替换默认的progressbar，一个红线，path为包括imagecropview的外框，显示进度(需要知道bitmap加载进度)
 	private WeakReference<BitmapLoadingWorkerTask> mBitmapLoadingWorkerTask;
 

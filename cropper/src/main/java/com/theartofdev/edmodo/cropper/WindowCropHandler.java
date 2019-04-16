@@ -15,11 +15,11 @@ package com.theartofdev.edmodo.cropper;
 import android.graphics.RectF;
 
 /**
- * Handler from crop window stuff, moving and knowing possition.
+ * Handler from crop window stuff, moving and knowing position.
  */
 final class WindowCropHandler {
 
-	// region: Fields and Consts
+	// region: Fields and Constants
 
 	/**
 	 * The 4 edges of the crop window defining its coordinates and size

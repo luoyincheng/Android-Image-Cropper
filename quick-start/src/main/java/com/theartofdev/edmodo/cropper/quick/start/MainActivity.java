@@ -46,10 +46,12 @@ public class MainActivity extends AppCompatActivity {
 				.Builder(null)
 				.setGuidelines(ImageCropView.Guidelines.ON)
 				.setActivityTitle("My Crop")
-				.setCropShape(ImageCropView.CropShape.OVAL)
+				.setCropShape(ImageCropView.CropShape.RECTANGLE)
 				.setCropMenuCropButtonTitle("Done")
 				.setRequestedSize(400, 400)
 				.setCropMenuCropButtonIcon(R.drawable.ic_launcher)
+				.setMultiTouchEnabled(true)
+				.setMinCropWindowSize(100,200)
 				.start(this);
 	}
 

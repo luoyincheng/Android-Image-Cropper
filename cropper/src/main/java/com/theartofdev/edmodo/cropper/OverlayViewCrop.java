@@ -34,7 +34,7 @@ import java.util.Arrays;
  */
 public class OverlayViewCrop extends View {
 
-	// region: Fields and Consts
+	// region: Fields and Constants
 
 	/**
 	 * Gesture detector used for multi touch box scaling
@@ -47,12 +47,12 @@ public class OverlayViewCrop extends View {
 	private boolean mMultiTouchEnabled;
 
 	/**
-	 * Handler from crop window stuff, moving and knowing possition.
+	 * Handler from crop window stuff, moving and knowing position.
 	 */
 	private final WindowCropHandler mWindowCropHandler = new WindowCropHandler();
 
 	/**
-	 * Listener to publicj crop window changes
+	 * Listener to public crop window changes
 	 */
 	private CropWindowChangeListener mCropWindowChangeListener;
 
