@@ -82,15 +82,15 @@ public class ImageCropActivity extends AppCompatActivity
 
 		if (savedInstanceState == null) {
 			if (mCropImageUri == null || mCropImageUri.equals(Uri.EMPTY)) {
-				if (ImageCrop.isExplicitCameraPermissionRequired(this)) {
+				if (IntentUtils.isExplicitCameraPermissionRequired(this)) {
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.CAMERA},
 							CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
 				} else {
-					ImageCrop.startPickImageActivity(this);
+					IntentUtils.startPickImageActivity(this);
 				}
-			} else if (ImageCrop.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
+			} else if (IntentUtils.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
 				// request permissions and handle the result in onRequestPermissionsResult()
 				requestPermissions(
 						new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -215,11 +215,11 @@ public class ImageCropActivity extends AppCompatActivity
 			}
 
 			if (resultCode == Activity.RESULT_OK) {
-				mCropImageUri = ImageCrop.getPickImageResultUri(this, data);
+				mCropImageUri = IntentUtils.getPickImageResultUri(this, data);
 
 				// For API >= 23 we need to check specifically that we have permissions to read external
 				// storage.
-				if (ImageCrop.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
+				if (IntentUtils.isReadExternalStoragePermissionsRequired(this, mCropImageUri)) {
 					// request permissions and handle the result in onRequestPermissionsResult()
 					requestPermissions(
 							new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -250,7 +250,7 @@ public class ImageCropActivity extends AppCompatActivity
 		if (requestCode == CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
 			// Irrespective of whether camera permission was given or not, we show the picker
 			// The picker will not add the camera intent if permission is not available
-			ImageCrop.startPickImageActivity(this);
+			IntentUtils.startPickImageActivity(this);
 		}
 	}
 
@@ -341,8 +341,8 @@ public class ImageCropActivity extends AppCompatActivity
 	 * Get intent instance to be used for the result of this activity.
 	 */
 	protected Intent getResultIntent(Uri uri, Exception error, int sampleSize) {
-		ImageCrop.ActivityResult result =
-				new ImageCrop.ActivityResult(
+		ActivityResult result =
+				new ActivityResult(
 						mImageCropView.getImageUri(),
 						uri,
 						error,

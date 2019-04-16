@@ -47,7 +47,7 @@ import androidx.exifinterface.media.ExifInterface;
 /**
  * Utility class that deals with operations with an ImageView.
  */
-final class BitmapUtils {
+public final class BitmapUtils {
 
 	static final Rect EMPTY_RECT = new Rect();
 

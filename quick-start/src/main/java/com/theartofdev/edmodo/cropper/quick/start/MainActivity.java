@@ -21,10 +21,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.theartofdev.edmodo.cropper.ImageCrop;
+import com.theartofdev.edmodo.cropper.ActivityResult;
+import com.theartofdev.edmodo.cropper.IntentUtils;
 import com.theartofdev.edmodo.cropper.ImageCropOptions;
 import com.theartofdev.edmodo.cropper.ImageCropView;
 
+import static com.theartofdev.edmodo.cropper.ActivityResult.getActivityResult;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE;
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 		// handle result of ImageCropActivity
 		if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-			ImageCrop.ActivityResult result = ImageCrop.getActivityResult(data);
+			ActivityResult result = getActivityResult(data);
 			if (resultCode == RESULT_OK) {
 				((ImageView) findViewById(R.id.quick_start_cropped_image)).setImageURI(result.getUri());
 				Toast.makeText(

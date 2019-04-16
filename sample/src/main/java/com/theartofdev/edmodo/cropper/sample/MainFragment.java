@@ -28,9 +28,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.croppersample.R;
-import com.theartofdev.edmodo.cropper.ImageCrop;
+import com.theartofdev.edmodo.cropper.ActivityResult;
 import com.theartofdev.edmodo.cropper.ImageCropView;
 
+import static com.theartofdev.edmodo.cropper.ActivityResult.getActivityResult;
 import static com.theartofdev.edmodo.cropper.BitmapUtils.toOvalBitmap;
 import static com.theartofdev.edmodo.cropper.Constants.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 
@@ -64,7 +65,7 @@ public final class MainFragment extends Fragment
 	 */
 	public void setImageUri(Uri imageUri) {
 		mImageCropView.setImageUriAsync(imageUri);
-		//        ImageCrop.activity(imageUri)
+		//        IntentUtils.activity(imageUri)
 		//                .start(getContext(), this);
 	}
 
@@ -218,7 +219,7 @@ public final class MainFragment extends Fragment
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-			ImageCrop.ActivityResult result = ImageCrop.getActivityResult(data);
+			ActivityResult result = getActivityResult(data);
 			handleCropResult(result);
 		}
 	}

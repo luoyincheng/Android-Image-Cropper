@@ -33,7 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.croppersample.R;
-import com.theartofdev.edmodo.cropper.ImageCrop;
+import com.theartofdev.edmodo.cropper.IntentUtils;
 import com.theartofdev.edmodo.cropper.ImageCropView;
 
 import static com.theartofdev.edmodo.cropper.Constants.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE;
@@ -117,14 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
 		if (requestCode == PICK_IMAGE_CHOOSER_REQUEST_CODE
 				&& resultCode == AppCompatActivity.RESULT_OK) {
-			Uri imageUri = ImageCrop.getPickImageResultUri(this, data);
+			Uri imageUri = IntentUtils.getPickImageResultUri(this, data);
 
 			// For API >= 23 we need to check specifically that we have permissions to read external
 			// storage,
 			// but we don't know if we need to for the URI so the simplest is to try open the stream and
 			// see if we get error.
 			boolean requirePermissions = false;
-			if (ImageCrop.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+			if (IntentUtils.isReadExternalStoragePermissionsRequired(this, imageUri)) {
 
 				// request permissions and handle the result in onRequestPermissionsResult()
 				requirePermissions = true;
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 			int requestCode, String permissions[], int[] grantResults) {
 		if (requestCode == CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
 			if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-				ImageCrop.startPickImageActivity(this);
+				IntentUtils.startPickImageActivity(this);
 			} else {
 				Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
 						.show();
@@ -166,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
 	public void onDrawerOptionClicked(View view) {
 		switch (view.getId()) {
 			case R.id.drawer_option_load:
-				if (ImageCrop.isExplicitCameraPermissionRequired(this)) {
+				if (IntentUtils.isExplicitCameraPermissionRequired(this)) {
 					requestPermissions(
 							new String[]{Manifest.permission.CAMERA},
 							CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
 				} else {
-					ImageCrop.startPickImageActivity(this);
+					IntentUtils.startPickImageActivity(this);
 				}
 				mDrawerLayout.closeDrawers();
 				break;
