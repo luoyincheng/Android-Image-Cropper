@@ -63,34 +63,6 @@ public final class ImageCrop {
 	}
 
 	/**
-	 * Create a new bitmap that has all pixels beyond the oval shape transparent. Old bitmap is
-	 * recycled.
-	 */
-	public static Bitmap toOvalBitmap(@NonNull Bitmap bitmap) {
-		int width = bitmap.getWidth();
-		int height = bitmap.getHeight();
-		Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-
-		Canvas canvas = new Canvas(output);
-
-		int color = 0xff424242;
-		Paint paint = new Paint();
-
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-
-		RectF rect = new RectF(0, 0, width, height);
-		canvas.drawOval(rect, paint);
-		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, 0, 0, paint);
-
-		bitmap.recycle();
-
-		return output;
-	}
-
-	/**
 	 * Start an activity to get image for cropping using chooser intent that will have all the
 	 * available applications for the device like camera (MyCamera), galkery (Photos), store apps
 	 * (DropBox), etc.<br>
